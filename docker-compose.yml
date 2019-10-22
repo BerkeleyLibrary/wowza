@@ -1,0 +1,11 @@
+services:
+  wowza: &sevices-wowza
+    build:
+      context: .
+      target: development
+    ports:
+      - target: 1935
+        published: 1935
+    restart: always
+
+version: '3.7'
