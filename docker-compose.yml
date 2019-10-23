@@ -1,11 +1,14 @@
 services:
-  wowza: &sevices-wowza
+  server:
+    image: 'wowza_server'
     build:
       context: .
       target: development
     ports:
-      - target: 1935
+      - target: 1935        # Default streaming port
         published: 1935
+      - target: 8088        # Wowza Streaming Engine Manager
+        published: 8088
     restart: always
 
 version: '3.7'
