@@ -2,7 +2,7 @@
 # Target: base
 #
 
-FROM wowzamedia/wowza-streaming-engine-linux:4.7.7 AS base
+FROM wowzamedia/wowza-streaming-engine-linux:4.7.8 AS base
 
 # =============================================================================
 # Global configuration

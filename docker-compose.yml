@@ -7,7 +7,9 @@ services:
     ports:
       - target: 1935        # Default streaming port
         published: 1935
-      - target: 8088        # Wowza Streaming Engine Manager
+      - target: 8087        # Wowza Streaming Engine API
+        published: 8087
+      - target: 8088        # Wowza Streaming Engine Manager UI
         published: 8088
     restart: always
 
