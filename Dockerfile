@@ -5,6 +5,15 @@
 FROM wowzamedia/wowza-streaming-engine-linux:4.7.8 AS base
 
 # =============================================================================
+# For debugging
+
+RUN apt-get update -qq
+RUN apt-get install -y \
+    curl \
+    dnsutils \
+    iputils-ping
+
+# =============================================================================
 # Global configuration
 
 # Set unique uid/gid for wowza user/group
@@ -14,10 +23,31 @@ ENV APP_UID=40041
 
 RUN usermod -u $APP_UID $APP_USER && \
     groupmod -g $APP_UID $APP_USER && \
-    chown -R $APP_USER:$APP_USER /usr/local && \
+    chown -R $APP_USER:$APP_USER /usr/local/WowzaStreamingEngine && \
     chown -R $APP_USER:$APP_USER /home/wowza
 
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+# =============================================================================
+# Ports
+
+# Default streaming port
+EXPOSE 1935/tcp
+
+# Wowza Streaming Engine API
+EXPOSE 8087/tcp
+
+# Wowza Streaming Engine Manager UI
+EXPOSE 8088/tcp
+
+# =============================================================================
+# Local config
+
+COPY --chown=$APP_USER bin /home/wowza/bin
+COPY --chown=$APP_USER conf /usr/local/WowzaStreamingEngine/conf
+
+# =============================================================================
+# Entrypoint
+
+ENTRYPOINT ["/home/wowza/bin/docker-entrypoint-server.sh"]
 
 # =============================================================================
 # Target: development

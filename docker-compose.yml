@@ -1,6 +1,7 @@
 services:
   server:
-    image: 'wowza_server'
+    image: 'wowza-server'
+    container_name: 'wowza-server'
     build:
       context: .
       target: development
@@ -9,8 +10,21 @@ services:
         published: 1935
       - target: 8087        # Wowza Streaming Engine API
         published: 8087
+    restart: always
+    environment:
+      - WSE_LIC=${WSE_LIC}
+      - WSE_MGR_PASS=${WSE_MGR_PASS}
+  manager:
+    image: 'wowza-server'
+    container_name: 'wowza-manager'
+    depends_on:
+      - 'server'
+    ports:
       - target: 8088        # Wowza Streaming Engine Manager UI
         published: 8088
     restart: always
+    environment:
+      - WSE_MGR_PASS=${WSE_MGR_PASS}
+    entrypoint: '/home/wowza/bin/docker-entrypoint-manager.sh'
 
 version: '3.7'
