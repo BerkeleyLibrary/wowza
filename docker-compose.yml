@@ -13,6 +13,7 @@ services:
     restart: always
     environment:
       - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY}
+      - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
   manager:
     image: 'wowza-server'
@@ -24,6 +25,8 @@ services:
         published: 8088
     restart: always
     environment:
+      - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY}
+      - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
     entrypoint: '/home/wowza/bin/docker-entrypoint-manager.sh'
 
