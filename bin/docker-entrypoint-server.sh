@@ -13,9 +13,9 @@ DIR="$(dirname "${BASH_SOURCE[0]}")"
 # shellcheck source=manager-credentials.sh
 source "${DIR}/manager-credentials.sh"
 
-echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD} admin|advUser\n" >> "${WMSAPP_CONF}/admin.password"
-echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD}\n" >> "${WMSAPP_CONF}/publish.password"
-echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD}\n" >> "${WMSAPP_CONF}/jmxremote.password"
+echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD} admin|advUser\n" > "${WMSAPP_CONF}/admin.password"
+echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD}\n" > "${WMSAPP_CONF}/publish.password"
+echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD}\n" > "${WMSAPP_CONF}/jmxremote.password"
 
 # ########################################
 # License file
