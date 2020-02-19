@@ -1,42 +1,39 @@
 #!/bin/bash
 
-# ############################################################
+# ########################################
 # Global configuration
 
 WMSAPP_HOME="$(readlink /usr/local/WowzaStreamingEngine)"
 WMSAPP_CONF="${WMSAPP_HOME}/conf"
 
-# ############################################################
+# ########################################
 # Manager & API username/password
 
-WSE_MGR_USER=wowza
+DIR="$(dirname "${BASH_SOURCE[0]}")"
+# shellcheck source=manager-credentials.sh
+source "${DIR}/manager-credentials.sh"
 
-if [ -z "${WSE_MGR_PASS}" ]; then
-  echo 'Wowza Streaming Engine Manager password not set in WSE_MGR_PASS'
-  exit 1
-fi
+echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD} admin|advUser\n" >> "${WMSAPP_CONF}/admin.password"
+echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD}\n" >> "${WMSAPP_CONF}/publish.password"
+echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD}\n" >> "${WMSAPP_CONF}/jmxremote.password"
 
-echo -e "\n${WSE_MGR_USER} ${WSE_MGR_PASS} admin|advUser\n" >> "${WMSAPP_CONF}/admin.password"
-echo -e "\n${WSE_MGR_USER} ${WSE_MGR_PASS}\n" >> "${WMSAPP_CONF}/publish.password"
-echo -e "\n${WSE_MGR_USER} ${WSE_MGR_PASS}\n" >> "${WMSAPP_CONF}/jmxremote.password"
-
-# ############################################################
+# ########################################
 # License file
 
 WMSLICENSE_FILE="${WMSAPP_CONF}/Server.license"
 
-if [ -z "${WSE_LIC}" ]; then
+if [ -z "${WOWZA_LICENSE_KEY}" ]; then
   # Container ships with some kind of demo license, so this isn't a showstopper?
-  echo 'Wowza Streaming Engine license key not set in WSE_LIC'
+  echo 'Wowza Streaming Engine license key not set in WOWZA_LICENSE_KEY'
 else
   {
     echo '-----BEGIN LICENSE-----'
-    echo "${WSE_LIC}"
+    echo "${WOWZA_LICENSE_KEY}"
     echo '-----END LICENSE-----'
   } > "${WMSLICENSE_FILE}"
 fi
 
-# ############################################################
+# ########################################
 # Server startup
 
 MODE=standalone
