@@ -6,6 +6,16 @@ This is the containerized UC Berkeley Library installation of the
 For the old standalone installation and associated code, see the
 [lap/wowza-legacy](https://git.lib.berkeley.edu/lap/wowza-legacy) project.
 
+## Structure of this stack
+
+Defines:
+
+1. the Wowza streaming media engine application
+2. the Wowza streaming engine manager UI, which runs as a separate
+   service in a separate container
+
+See [docker-compose.yml](docker-compose.yml) for details.
+
 ## Development
 
 1. Build the Docker stack with
