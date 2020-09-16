@@ -14,10 +14,10 @@ For the old standalone installation and associated code, see the
    docker-compose build --pull
    ```
 
-2. Start the Docker stack with
+2. From the project root directory, start the Docker stack with
 
    ```sh
-   WSE_MGR_PASS=<manager-password> docker-compose up
+   docker-compose up
    ```
 
 To log into the containers with an interactive shell:
@@ -38,4 +38,4 @@ To log into the containers with an interactive shell:
 
 To access Wowza Streaming Engine Manager, use the URL 
 [`http://localhost:8088/enginemanager/login.htm?host=http://wowza-server:8087`](http://localhost:8088/enginemanager/login.htm?host=http://wowza-server:8087)
-with username `wowza` and the password specified as `$WSE_MGR_PASS` above.
+with username and password specified as `$WOWZA_MANAGER_USER` and `$WOWZA_MANAGER_PASSWORD` in [.env](.env)
