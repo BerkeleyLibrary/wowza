@@ -43,6 +43,8 @@ EXPOSE 8088/tcp
 
 COPY --chown=$APP_USER bin /home/wowza/bin
 COPY --chown=$APP_USER conf /usr/local/WowzaStreamingEngine/conf
+COPY --chown=$APP_USER applications /usr/local/WowzaStreamingEngine/applications
+RUN find /usr/local/WowzaStreamingEngine/applications -name .keep -delete
 
 # =============================================================================
 # Entrypoint
