@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root version="1">
 	<Application>
-		<Name>vod</Name>
+		<Name>mrc</Name>
 		<AppType>VOD</AppType>
-		<Description>Default application for video on demand (VOD) streaming created when Wowza Streaming Engine is installed. Use this application with its default configuration or modify the configuration as needed. You can also copy it to create another VOD application.</Description>
+		<Description></Description>
 		<!-- Uncomment to set application level timeout values
 		<ApplicationTimeout>60000</ApplicationTimeout>
 		<PingTimeout>12000</PingTimeout>
@@ -18,23 +18,28 @@
 		</Connections>
 		<!--
 			StorageDir path variables
-			
+
 			${com.wowza.wms.AppHome} - Application home directory
 			${com.wowza.wms.ConfigHome} - Configuration home directory
 			${com.wowza.wms.context.VHost} - Virtual host name
-			${com.wowza.wms.context.VHostConfigHome} - Virtual host config directory
+			${com.wowza.wms.context.VHostConfigHome} - Virtual host home directory
 			${com.wowza.wms.context.Application} - Application name
 			${com.wowza.wms.context.ApplicationInstance} - Application instance name
-			
+
 		-->
 		<Streams>
 			<StreamType>default</StreamType>
-			<StorageDir>${com.wowza.wms.context.VHostConfigHome}/content</StorageDir>
+			<StorageDir>/nfsDirs/data2/da/mrc/ucb/video/public</StorageDir>
 			<KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
 			<!-- LiveStreamPacketizers (separate with commas): cupertinostreamingpacketizer, smoothstreamingpacketizer, sanjosestreamingpacketizer, mpegdashstreamingpacketizer, cupertinostreamingrepeater, smoothstreamingrepeater, sanjosestreamingrepeater, mpegdashstreamingrepeater, dvrstreamingpacketizer, dvrstreamingrepeater -->
 			<LiveStreamPacketizers></LiveStreamPacketizers>
 			<!-- Properties defined here will override any properties defined in conf/Streams.xml for any streams types loaded by this application -->
 			<Properties>
+				<Property>
+					<Name>enableDynamicStreamMarkers</Name>
+					<Value>true</Value>
+					<Type>Boolean</Type>
+				</Property>
 			</Properties>
 		</Streams>
 		<Transcoder>
@@ -164,6 +169,22 @@
 		<HTTPStreamer>
 			<!-- Properties defined here will override any properties defined in conf/HTTPStreamers.xml for any HTTPStreamer loaded by this applications -->
 			<Properties>
+				<!-- <Property> -->
+				<!-- 	<Name>mpegdashUserHTTPHeaders</Name> -->
+				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
+				<!-- </Property> -->
+				<!-- <Property> -->
+				<!-- 	<Name>cupertinoUserHTTPHeaders</Name> -->
+				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
+				<!-- </Property> -->
+				<!-- <Property> -->
+				<!-- 	<Name>smoothUserHTTPHeaders</Name> -->
+				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
+				<!-- </Property> -->
+				<!-- <Property> -->
+				<!-- 	<Name>sanjoseUserHTTPHeaders</Name> -->
+				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
+				<!-- </Property> -->
 			</Properties>
 		</HTTPStreamer>
 		<Manager>
