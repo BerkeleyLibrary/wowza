@@ -1,0 +1,3 @@
+dockerComposePipeline(
+  stack: [template: 'app']
+)
