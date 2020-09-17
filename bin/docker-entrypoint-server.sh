@@ -43,8 +43,6 @@ WMSTUNE_OPTS=$("${WMSAPP_HOME}/bin/tune.sh" ${MODE})
 JMXOPTIONS="-Dcom.sun.management.jmxremote=true"
 WMSAPP_BIN="${WMSAPP_HOME}/bin"
 
-exit 1
-
 # shellcheck disable=SC2086
 "${WMSJAVA_HOME}/bin/java" \
   ${WMSTUNE_OPTS} \
