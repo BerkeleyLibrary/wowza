@@ -43,8 +43,14 @@ EXPOSE 8088/tcp
 
 COPY --chown=$APP_USER bin /home/wowza/bin
 COPY --chown=$APP_USER conf /usr/local/WowzaStreamingEngine/conf
+# Wowza expects an empty application directory tree at startup
 COPY --chown=$APP_USER applications /usr/local/WowzaStreamingEngine/applications
 RUN find /usr/local/WowzaStreamingEngine/applications -name .keep -delete
+
+# =============================================================================
+# Tests
+
+COPY --chown=$APP_USER test /home/wowza/test
 
 # =============================================================================
 # Entrypoint
