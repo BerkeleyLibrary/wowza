@@ -1,4 +1,18 @@
 #!/usr/bin/env python3
+
+# -*- coding: utf-8 -*-
+"""run_tests.py
+
+To be used as a Docker command when running the Wowza server and tests in a
+standalone container. This script:
+
+1. starts the Wowza server using ``bin/docker-entrypoint-server.sh``
+2. waits for the server to start (as indicated by the ``REST API: ready``
+   message in the server's output)
+3. runs the tests in ``wowza_test.py``
+4. stops the server
+"""
+
 import os
 import pathlib
 import subprocess

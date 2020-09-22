@@ -49,3 +49,7 @@ To log into the containers with an interactive shell:
 To access Wowza Streaming Engine Manager, use the URL 
 [`http://localhost:8088/enginemanager/login.htm?host=http://wowza-server:8087`](http://localhost:8088/enginemanager/login.htm?host=http://wowza-server:8087)
 with username and password specified as `$WOWZA_MANAGER_USER` and `$WOWZA_MANAGER_PASSWORD` in [.env](.env)
+
+## Testing
+
+See the [README](test/README.md) in the test directory.
