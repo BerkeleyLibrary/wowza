@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import os
 import pathlib
 import subprocess
 import sys
@@ -8,11 +8,14 @@ import wowza_test
 
 TIMEOUT_SECONDS = 60
 
+os.environ['WOWZA_MANAGER_PASSWORD'] = 'wowza'  # TODO: is this a good idea?
+
 project_dir = pathlib.Path(__file__).parent.parent.absolute()
 server_sh = project_dir / 'bin' / 'docker-entrypoint-server.sh'
 
 
 def start_server():
+    print(f"Starting server with %s" % server_sh, file=sys.stderr)
     process = subprocess.Popen(server_sh, stdout=subprocess.PIPE, encoding='utf8')
     for line in process.stdout:
         if 'REST API: ready' in line:
