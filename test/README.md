@@ -33,6 +33,9 @@ Alternatively, you can run the tests and server in the same container (as the Je
 does). Note that this does not require exposing any ports to the host.
 
 ```
-docker run -e WOWZA_MANAGER_PASSWORD=wowza -p 127.0.0.1:8087:8087/tcp wowza-server \
-  /home/wowza/test/run_tests.py
+docker run -e WOWZA_MANAGER_PASSWORD=wowza wowza-server /home/wowza/test/run_tests.py
 ```
+
+Remember to rebuild the `wowza-server` container before testing, to make sure your latest
+additions to the test suite are included.
+ 

@@ -19,7 +19,9 @@ class WowzaTest(unittest.TestCase):
     # ------------------------------
     # Fixture
 
-    project_dir = pathlib.Path(__file__).parent.parent.absolute()
+    wowza_home = pathlib.Path(__file__).parent.parent.absolute()
+    wowza_engine_dir = pathlib.Path('/usr/local/WowzaStreamingEngine')
+
     base_url: str = 'http://localhost:8087/'
 
     @cached_property
@@ -32,6 +34,12 @@ class WowzaTest(unittest.TestCase):
         auth_handler = urllib.request.HTTPDigestAuthHandler(password_mgr)
         opener = urllib.request.build_opener(auth_handler)
         return opener
+
+    @cached_property
+    def apps_dir(self):
+        if WowzaTest.wowza_engine_dir.is_dir():
+            return WowzaTest.wowza_engine_dir / 'applications'
+        return WowzaTest.wowza_home / 'applications'
 
     def open(self, url):
         return self.url_opener.open(url)
@@ -55,8 +63,7 @@ class WowzaTest(unittest.TestCase):
         url = WowzaTest.base_url + 'v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications'
         root = self.get_xml(url)
 
-        apps_dir = WowzaTest.project_dir / 'applications'
-        applications_expected = {f for f in os.listdir(apps_dir) if (apps_dir / f).is_dir()}
+        applications_expected = {f for f in os.listdir(self.apps_dir) if (self.apps_dir / f).is_dir()}
 
         applications_actual = set()
         for child in root:
