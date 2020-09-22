@@ -14,11 +14,16 @@ project_dir = pathlib.Path(__file__).parent.parent.absolute()
 server_sh = project_dir / 'bin' / 'docker-entrypoint-server.sh'
 
 
+def log(msg):
+    print(msg, file=sys.stderr)
+
+
 def start_server():
-    print(f"Starting server with %s" % server_sh, file=sys.stderr)
+    log(f"Starting Wowza server with %s" % server_sh)
     process = subprocess.Popen(server_sh, stdout=subprocess.PIPE, encoding='utf8')
     for line in process.stdout:
         if 'REST API: ready' in line:
+            log("Wowza server started")
             break
     return process
 
@@ -28,7 +33,7 @@ def main():
     status = process.poll()
     try:
         if status is not None:
-            print(f"%s exited with %d" % (server_sh, status), file=sys.stderr)
+            log(f"%s exited with %d" % (server_sh, status))
             exit(1)
 
         result = wowza_test.WowzaTest.runTests()
@@ -36,8 +41,10 @@ def main():
             exit(1)
 
     finally:
+        log("Stopping Wowza server")
         process.terminate()
         process.wait(TIMEOUT_SECONDS)
+        log("Wowza server stopped")
 
 
 if __name__ == "__main__":
