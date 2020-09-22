@@ -53,11 +53,6 @@ RUN find /usr/local/WowzaStreamingEngine/applications -name .keep -delete
 COPY --chown=$APP_USER test /home/wowza/test
 
 # =============================================================================
-# Entrypoint
-
-ENTRYPOINT ["/home/wowza/bin/docker-entrypoint-server.sh"]
-
-# =============================================================================
 # Target: development
 #
 

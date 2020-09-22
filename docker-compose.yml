@@ -15,6 +15,7 @@ services:
       - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY}
       - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
+    entrypoint: '/home/wowza/bin/docker-entrypoint-server.sh'
   manager:
     image: 'wowza-server'
     container_name: 'wowza-manager'
