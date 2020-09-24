@@ -29,7 +29,7 @@
 		-->
 		<Streams>
 			<StreamType>default</StreamType>
-			<StorageDir>/netapp/da/video/public/sf_quake_1906</StorageDir>
+			<StorageDir>/netapp/da/video/public/sf_quake_1906</StorageDir> <!-- TODO: replace with vm142 path once symlinks there are sorted -->
 			<KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
 			<!-- LiveStreamPacketizers (separate with commas): cupertinostreamingpacketizer, smoothstreamingpacketizer, sanjosestreamingpacketizer, mpegdashstreamingpacketizer, cupertinostreamingrepeater, smoothstreamingrepeater, sanjosestreamingrepeater, mpegdashstreamingrepeater, dvrstreamingpacketizer, dvrstreamingrepeater -->
 			<LiveStreamPacketizers></LiveStreamPacketizers>
