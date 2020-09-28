@@ -41,11 +41,17 @@ EXPOSE 8088/tcp
 # =============================================================================
 # Local config
 
+# Delete default applications, which we don't use
+RUN for app in vod live; \
+    do \
+        rm -r /usr/local/WowzaStreamingEngine/applications/${app}; \
+        rm -r /usr/local/WowzaStreamingEngine/conf/${app}; \
+    done
+
+# Copy our scripts and configs into the container
 COPY --chown=$APP_USER bin /home/wowza/bin
 COPY --chown=$APP_USER conf /usr/local/WowzaStreamingEngine/conf
-# Wowza expects an empty application directory tree at startup
 COPY --chown=$APP_USER applications /usr/local/WowzaStreamingEngine/applications
-RUN find /usr/local/WowzaStreamingEngine/applications -name .keep -delete
 
 # =============================================================================
 # Tests
