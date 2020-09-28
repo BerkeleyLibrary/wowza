@@ -66,9 +66,8 @@ class WowzaTest(unittest.TestCase):
         applications_expected = {f for f in os.listdir(self.apps_dir) if (self.apps_dir / f).is_dir()}
 
         applications_actual = set()
-        for child in root:
-            if child.tag != 'Application': continue
-            applications_actual.add(child.attrib['id'])
+        for app in root.findall('./Application'):
+            applications_actual.add(app.attrib['id'])
 
         self.assertEqual(len(applications_actual), len(applications_expected))
         self.assertEqual(applications_actual, applications_expected)
