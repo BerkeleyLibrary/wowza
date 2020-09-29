@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# ########################################
+# Global configuration
+
+WOWZA_BIN="$(dirname "${BASH_SOURCE[0]}")"
+WMSAPP_HOME="$(readlink /usr/local/WowzaStreamingEngine)"
+WMSMGR_HOME="${WMSAPP_HOME}/manager"
+
+# ########################################
+# Start server and manager in background
+
+# shellcheck source=start-server.sh
+"${WOWZA_BIN}"/start-server.sh &
+SERVER_PID=$!
+
+"${WMSMGR_HOME}"/bin/startmgr.sh &
+MANAGER_PID=$!
+
+# ########################################
+# Make sure child processes exit cleanly
+
+ensure_clean_exit() {
+  trap - SIGINT SIGTERM # clear the trap
+  echo "Killing process $$ and all subprocesses"
+  kill -- -$$
+}
+
+sigint_received() {
+  echo "SIGINT received"
+  ensure_clean_exit
+}
+
+sigterm_received() {
+  echo "SIGTERM received"
+  ensure_clean_exit
+}
+
+trap sigint_received SIGINT
+trap sigterm_received SIGTERM
+
+# ########################################
+# Wait for manager or server to exit
+
+wait -n
+EXIT_STATUS=$?
+
+# Whichever exited, kill the other one
+if ! kill -0 $SERVER_PID 2> /dev/null; then
+  echo "Wowza Streaming Engine (PID ${SERVER_PID}) exited with ${EXIT_STATUS}"
+  echo "Stopping Wowza Streaming Engine Manager (PID ${MANAGER_PID})"
+  kill -- -$MANAGER_PID 2> /dev/null
+elif ! kill -0 $MANAGER_PID 2> /dev/null; then
+  echo "Wowza Streaming Engine Manager (PID ${MANAGER_PID}) exited with ${EXIT_STATUS}"
+  echo "Stopping Wowza Streaming Engine (PID ${SERVER_PID})"
+  kill -- -$SERVER_PID 2> /dev/null
+fi
+
+echo "Exiting with status ${EXIT_STATUS}"
+exit $EXIT_STATUS

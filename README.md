@@ -8,13 +8,10 @@ For the old standalone installation and associated code, see the
 
 ## Structure of this stack
 
-Defines:
-
-1. the Wowza streaming media engine application
-2. the Wowza streaming engine manager UI, which runs as a separate
-   service in a separate container
-
-See [docker-compose.yml](docker-compose.yml) for details.
+The stack consists of a single container, in which runs both
+the Wowza streaming media engine application, and the Wowza
+streaming engine manager UI (as in a typical uncontainerized
+Wowza installation).
 
 ## Development
 
@@ -30,24 +27,16 @@ See [docker-compose.yml](docker-compose.yml) for details.
    docker-compose up
    ```
 
-To log into the containers with an interactive shell:
+To log into the container with an interactive shell:
 
-- server: 
-
-  ```sh
-  docker exec -it -u wowza -w /usr/local/WowzaStreamingEngine wowza-server /bin/bash
-  ```
+```sh
+docker exec -it -u wowza -w /usr/local/WowzaStreamingEngine wowza /bin/bash
+```
   
-- manager:
-
-  ```sh
-  docker exec -it -u wowza -w /usr/local/WowzaStreamingEngine wowza-manager /bin/bash
-  ```
-
 ### Accessing Wowza Streaming Engine Manager
 
 To access Wowza Streaming Engine Manager, use the URL 
-[`http://localhost:8088/enginemanager/login.htm?host=http://wowza-server:8087`](http://localhost:8088/enginemanager/login.htm?host=http://wowza-server:8087)
+[`http://localhost:8088/enginemanager/login.htm`](http://localhost:8088/enginemanager/login.htm)
 with username and password specified as `$WOWZA_MANAGER_USER` and `$WOWZA_MANAGER_PASSWORD` in [.env](.env)
 
 ## Testing

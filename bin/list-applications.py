@@ -8,7 +8,7 @@ from urllib.parse import urljoin
 
 
 class WowzaClient:
-    base_url: str = 'http://localhost:8087/'
+    base_url: str = os.environ.get('WOWZA_API_URL', 'http://localhost:8087/')
 
     def __init__(self, out=sys.stdout):
         self.out = out

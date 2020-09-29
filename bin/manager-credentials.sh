@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ############################################################
 # Verify that we have credentials for the Wowza Streaming

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ############################################################
 # Read all Docker secrets in /run/secrets and set them as
@@ -13,6 +13,7 @@ if [ -d '/run/secrets' ]; then
   for f in /run/secrets/*
   do
     SECRET="$(basename "${f}")"
+    echo "Setting ${SECRET} from ${f}"
     export "${SECRET}"="$(cat "${f}")"
   done
 fi
