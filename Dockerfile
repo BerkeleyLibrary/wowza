@@ -61,7 +61,7 @@ COPY --chown=$APP_USER test /home/wowza/test
 # =============================================================================
 # Default command
 
-CMD ["/home/wowza/bin/docker-entrypoint-server.sh"]
+CMD ["/home/wowza/bin/docker-entrypoint.sh"]
 
 # =============================================================================
 # Target: development

@@ -1,7 +1,7 @@
 services:
-  server:
-    image: 'wowza-server'
-    container_name: 'wowza-server'
+  wowza:
+    image: 'wowza'
+    container_name: 'wowza'
     build:
       context: .
       target: development
@@ -10,25 +10,12 @@ services:
         published: 1935
       - target: 8087        # Wowza Streaming Engine API
         published: 8087
-    restart: always
-    environment:
-      - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY}
-      - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
-      - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
-    entrypoint: '/home/wowza/bin/docker-entrypoint-server.sh'
-  manager:
-    image: 'wowza-server'
-    container_name: 'wowza-manager'
-    depends_on:
-      - 'server'
-    ports:
       - target: 8088        # Wowza Streaming Engine Manager UI
         published: 8088
-    restart: always
     environment:
       - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY}
       - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
-    entrypoint: '/home/wowza/bin/docker-entrypoint-manager.sh'
+    entrypoint: '/home/wowza/bin/docker-entrypoint.sh'
 
 version: '3.7'

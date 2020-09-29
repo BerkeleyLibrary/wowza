@@ -6,7 +6,7 @@
 To be used as a Docker command when running the Wowza server and tests in a
 standalone container. This script:
 
-1. starts the Wowza server using ``bin/docker-entrypoint-server.sh``
+1. starts the Wowza server using ``bin/start-server.sh``
 2. waits for the server to start (as indicated by the ``REST API: ready``
    message in the server's output)
 3. runs the tests in ``wowza_test.py``
@@ -25,7 +25,7 @@ TIMEOUT_SECONDS = 60
 os.environ['WOWZA_MANAGER_PASSWORD'] = 'wowza'  # TODO: is this a good idea?
 
 project_dir = pathlib.Path(__file__).parent.parent.absolute()
-server_sh = project_dir / 'bin' / 'docker-entrypoint-server.sh'
+server_sh = project_dir / 'bin' / 'start-server.sh'
 
 
 def log(msg):

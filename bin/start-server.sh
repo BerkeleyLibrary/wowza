@@ -1,17 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ########################################
 # Global configuration
 
+WOWZA_BIN="$(dirname "${BASH_SOURCE[0]}")"
 WMSAPP_HOME="$(readlink /usr/local/WowzaStreamingEngine)"
 WMSAPP_CONF="${WMSAPP_HOME}/conf"
 
 # ########################################
 # Manager & API username/password
 
-DIR="$(dirname "${BASH_SOURCE[0]}")"
 # shellcheck source=manager-credentials.sh
-source "${DIR}/manager-credentials.sh"
+source "${WOWZA_BIN}/manager-credentials.sh"
 
 echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD} admin|advUser\n" > "${WMSAPP_CONF}/admin.password"
 echo -e "\n${WOWZA_MANAGER_USER} ${WOWZA_MANAGER_PASSWORD}\n" > "${WMSAPP_CONF}/publish.password"
