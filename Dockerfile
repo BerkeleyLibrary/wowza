@@ -39,6 +39,27 @@ EXPOSE 8087/tcp
 EXPOSE 8088/tcp
 
 # =============================================================================
+# Java
+
+# The upstream Wowza image ships with OpenJDK 9.0.4+11, which is not a
+# long-term support release and, importantly, doesn't know about containers:
+# https://www.wowza.com/community/t/creating-a-production-worthy-docker-image/53957/3
+#
+# Luckily, Wowza supports manually replacing the JRE:
+# https://www.wowza.com/docs/manually-install-and-troubleshoot-java-on-wowza-streaming-engine
+#
+# (Unfortunately, this by itself isn't enough to get Wowza to properly
+# calculate its own max heap size, so we still need to set that explicitly
+# in Tune.xml. Possibly a future version of Wowza will be clever enough to
+# use -XX:MaxRAMPercentage instead.)
+
+RUN apt-get update
+RUN apt-get install -y openjdk-11-jre-headless
+
+RUN rm -rf /usr/local/WowzaStreamingEngine/java
+RUN ln -s /usr/lib/jvm/java-11-openjdk-amd64 /usr/local/WowzaStreamingEngine/java
+
+# =============================================================================
 # Local config
 
 # Delete default applications, which we don't use
