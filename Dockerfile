@@ -51,6 +51,7 @@ RUN for app in vod live; \
 # Copy our scripts and configs into the container
 COPY --chown=$APP_USER bin /home/wowza/bin
 COPY --chown=$APP_USER conf /usr/local/WowzaStreamingEngine/conf
+COPY --chown=$APP_USER manager/conf /usr/local/WowzaStreamingEngine/manager/conf
 COPY --chown=$APP_USER applications /usr/local/WowzaStreamingEngine/applications
 
 # =============================================================================
