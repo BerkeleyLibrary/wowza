@@ -13,9 +13,13 @@
 		  See notes in Dockerfile. Even with a JVM that supports the UseContainerSupport flag,
 		  Wowza still calculates its heap size based on the hardware memory, not the cgroup-
 		  based limit imposed on the container.
+
+		  Note also that since we don't/can't specify the heap size for the Wowza Streaming Engine
+		  Manager, it's going to set its max heap size to the Java default of 25% of the available
+		  memory — though in this case it does respect container limits.
 		-->
 		<!-- <HeapSize>${com.wowza.wms.TuningHeapSizeProduction}</HeapSize> -->
-		<HeapSize>2800M</HeapSize>
+		<HeapSize>2560M</HeapSize>
 
 		<!--
 			GarbageCollector
