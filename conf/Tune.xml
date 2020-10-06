@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Root>
 	<Tune>
-		<!-- 
+		<!--
 			HeapSize
 
 			${com.wowza.wms.TuningHeapSizeProduction} - Assumes Wowza Streaming Engine is only application running on server
@@ -9,7 +9,13 @@
 
 			or specify heap size directly (ex: <HeapSize>8000M</HeapSize>)
 		-->
-		<HeapSize>${com.wowza.wms.TuningHeapSizeProduction}</HeapSize>
+		<!--
+		  See notes in Dockerfile. Even with a JVM that supports the UseContainerSupport flag,
+		  Wowza still calculates its heap size based on the hardware memory, not the cgroup-
+		  based limit imposed on the container.
+		-->
+		<!-- <HeapSize>${com.wowza.wms.TuningHeapSizeProduction}</HeapSize> -->
+		<HeapSize>2800M</HeapSize>
 
 		<!--
 			GarbageCollector
@@ -21,7 +27,7 @@
 		-->
 		<GarbageCollector>${com.wowza.wms.TuningGarbageCollectorG1Default}</GarbageCollector>
 
-		<!-- 
+		<!--
 			VM Options - other VM startup options
 
 			${com.wowza.wms.AppHome} - Application home directory
