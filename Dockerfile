@@ -87,6 +87,10 @@ CMD ["/home/wowza/bin/docker-entrypoint.sh"]
 
 # =============================================================================
 # Target: development
-#
 
 FROM base AS development
+
+# =============================================================================
+# Target: production
+
+FROM base AS production
