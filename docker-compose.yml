@@ -4,7 +4,6 @@ services:
     container_name: 'wowza'
     build:
       context: .
-      target: development
     ports:
       - target: 1935        # Default streaming port
         published: 1935
@@ -12,10 +11,13 @@ services:
         published: 8087
       - target: 8088        # Wowza Streaming Engine Manager UI
         published: 8088
+      - target: 8089        # REST API documentation server (http://localhost:8089/api-docs)
+        published: 8089
     environment:
       - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY}
       - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
+      - WOWZA_ENABLE_DOCUMENTATION_SERVER=yes
     entrypoint: '/home/wowza/bin/docker-entrypoint.sh'
 
 version: '3.7'

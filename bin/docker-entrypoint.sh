@@ -8,6 +8,13 @@ WMSAPP_HOME="$(readlink /usr/local/WowzaStreamingEngine)"
 WMSMGR_HOME="${WMSAPP_HOME}/manager"
 
 # ########################################
+# Documentation server (disabled by default)
+
+if [ ! -z "${WOWZA_ENABLE_DOCUMENTATION_SERVER}" ]; then
+  "${WOWZA_BIN}"/enable-documentation-server.sh
+fi
+
+# ########################################
 # Start server and manager in background
 
 # shellcheck source=start-server.sh
