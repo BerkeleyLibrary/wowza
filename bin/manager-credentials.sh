@@ -15,6 +15,9 @@
 # than called directly.
 # ############################################################
 
+BASENAME=$(basename ${BASH_SOURCE})
+echo "${BASENAME} running"
+
 # Read secrets
 DIR="$(dirname "${BASH_SOURCE[0]}")"
 # shellcheck source=secrets.sh

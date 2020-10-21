@@ -4,6 +4,9 @@
 # github-markdown-preview previews
 *.md.html
 
+# test reports, etc.
+/artifacts
+
 ############################################################
 # Generated ignores
 

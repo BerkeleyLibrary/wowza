@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
-# Hacks Server.xml to enable the Swagger/OpenAPI documentation server, and disable
-# authentication for it. Should only be used for local development.
+# ############################################################
+# Hacks Server.xml to enable the Swagger/OpenAPI documentation
+# server, and disable authentication for it. Should only be
+# used for local development.
 
 BASENAME=$(basename ${BASH_SOURCE})
+echo "${BASENAME} running"
+
+# ########################################
+# Make sure we're supposed to be running
+
 if [ -z "${WOWZA_ENABLE_DOCUMENTATION_SERVER}" ]; then
   echo "$BASENAME"': $WOWZA_ENABLE_DOCUMENTATION_SERVER not set; exiting'
   exit 0

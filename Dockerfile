@@ -8,7 +8,7 @@ FROM wowzamedia/wowza-streaming-engine-linux:4.8.5 AS base
 # For debugging
 
 RUN apt-get update -qq
-RUN apt-get install -y \
+RUN apt-get install -y --no-install-recommends \
     curl \
     dnsutils \
     iputils-ping
@@ -23,8 +23,11 @@ ENV APP_UID=40041
 
 RUN usermod -u $APP_UID $APP_USER && \
     groupmod -g $APP_UID $APP_USER && \
-    chown -R $APP_USER:$APP_USER /usr/local/WowzaStreamingEngine && \
-    chown -R $APP_USER:$APP_USER /home/wowza
+    mkdir -p /opt/app && \
+    chown -R $APP_USER:$APP_USER /opt/app
+
+# transfer now-orphaned files to new wowza user (-h to chown symlinks)
+RUN find / -xdev -nouser -exec chown -h $APP_USER:$APP_USER {} \;
 
 # =============================================================================
 # Ports
@@ -53,11 +56,22 @@ EXPOSE 8088/tcp
 # in Tune.xml. Possibly a future version of Wowza will be clever enough to
 # use -XX:MaxRAMPercentage instead.)
 
-RUN apt-get update
-RUN apt-get install -y openjdk-11-jre-headless
+RUN apt-get install -y --no-install-recommends openjdk-11-jre-headless
 
 RUN rm -rf /usr/local/WowzaStreamingEngine/java
 RUN ln -s /usr/lib/jvm/java-11-openjdk-amd64 /usr/local/WowzaStreamingEngine/java
+
+# =============================================================================
+# Tests
+
+RUN apt-get install -y --no-install-recommends python3-pip
+RUN pip3 install unittest-xml-reporting
+
+COPY --chown=$APP_USER test /opt/app/test
+
+# Put artifacts where Jenkins can get at them
+RUN mkdir /opt/app/artifacts && \
+    chown $APP_USER:$APP_USER /opt/app/artifacts
 
 # =============================================================================
 # Local config
@@ -70,20 +84,21 @@ RUN for app in vod live; \
     done
 
 # Copy our scripts and configs into the container
-COPY --chown=$APP_USER bin /home/wowza/bin
+COPY --chown=$APP_USER bin /opt/app/bin
 COPY --chown=$APP_USER conf /usr/local/WowzaStreamingEngine/conf
 COPY --chown=$APP_USER manager/conf /usr/local/WowzaStreamingEngine/manager/conf
 COPY --chown=$APP_USER applications /usr/local/WowzaStreamingEngine/applications
 
-# =============================================================================
-# Tests
+# All subsequent commands are executed relative to this directory.
+WORKDIR /opt/app
 
-COPY --chown=$APP_USER test /home/wowza/test
+# Run as the wowza user to minimize risk to the host.
+USER $APP_USER
 
 # =============================================================================
 # Default command
 
-CMD ["/home/wowza/bin/docker-entrypoint.sh"]
+CMD ["/opt/app/bin/docker-entrypoint.sh"]
 
 # =============================================================================
 # Target: development
