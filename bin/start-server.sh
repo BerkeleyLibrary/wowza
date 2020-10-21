@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# ############################################################
+# Starts the Wowza Streaming Engine.
+
+BASENAME=$(basename ${BASH_SOURCE})
+echo "${BASENAME} running"
+
 # ########################################
 # Global configuration
 

@@ -1,4 +1,7 @@
 dockerComposePipeline(
   stack: [template: 'app'],
-  commands: ['/home/wowza/test/run_tests.py']
+  commands: ['/opt/app/test/run_tests.py'],
+  artifacts: [
+    junit   : 'artifacts/unittest/**/*.xml'
+  ]
 )
