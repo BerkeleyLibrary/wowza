@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+# ############################################################
+# Starts the Wowza Streaming Media Engine and the Wowza
+# Streaming Media Engine Manager in subprocesses, and waits
+# for them to exit.
+
+# TODO: now that we're running the manager and server in the same container,
+#       consider getting rid of this (or simplifying it) in favor of the
+#       upstream container's /sbin/entrypoint.sh, which uses supervisord
+
+BASENAME=$(basename ${BASH_SOURCE})
+echo "${BASENAME} running"
+
 # ########################################
 # Global configuration
 

@@ -18,6 +18,11 @@ services:
       - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
       - WOWZA_ENABLE_DOCUMENTATION_SERVER=yes
-    entrypoint: '/home/wowza/bin/docker-entrypoint.sh'
+    # Uncommment these when editing / running tests locally.
+    # (Note: slows performance on macOS Catalina, for some reason.)
+    # volumes:
+    #   - ./test:/opt/app/test
+    #   - ./artifacts:/opt/app/artifacts
+
 
 version: '3.7'

@@ -9,6 +9,9 @@
 # than called directly.
 # ############################################################
 
+BASENAME=$(basename ${BASH_SOURCE})
+echo "${BASENAME} running"
+
 if [ -d '/run/secrets' ]; then
   for f in /run/secrets/*
   do
