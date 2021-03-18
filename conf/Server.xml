@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Root version="2">
+<Root version="3">
 	<Server>
 		<Name>Wowza Streaming Engine</Name>
 		<Description>Wowza Streaming Engine is robust, customizable, and scalable server software that powers reliable streaming of high-quality video and audio to any device, anywhere.</Description>
@@ -7,8 +7,10 @@
 			<Enable>true</Enable>
 			<IPAddress>*</IPAddress>
 			<Port>8087</Port>
-			<!-- none, basic, digest, remotehttp, digestfile -->
+			<!-- none, basic, digest, remotehttp, digestfile-->
 			<AuthenticationMethod>digest</AuthenticationMethod>
+			<!-- cleartext, digest, bcrypt -->
+			<PasswordEncodingScheme>bcrypt</PasswordEncodingScheme>
 			<DiagnosticURLEnable>true</DiagnosticURLEnable>
 			<SSLConfig>
 				<Enable>false</Enable>

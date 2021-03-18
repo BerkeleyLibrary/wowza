@@ -7,6 +7,9 @@
 # test reports, etc.
 /artifacts
 
+# temporary files
+/tmp
+
 ############################################################
 # Generated ignores
 

@@ -55,66 +55,66 @@
           </HTTPProvider>
           <HTTPProvider>
             <BaseClass>com.wowza.wms.http.HTTPServerVersion</BaseClass>
-            <RequestFilters>*</RequestFilters>
+						<RequestFilters>*ServerVersion</RequestFilters>
             <AuthenticationMethod>none</AuthenticationMethod>
           </HTTPProvider>
         </HTTPProviders>
       </HostPort>
-      
+
       <!-- 443 with SSL -->
-<!--      <HostPort>-->
-<!--        <Name>Default SSL Streaming</Name>-->
-<!--        <Type>Streaming</Type>-->
-<!--        <ProcessorCount>${com.wowza.wms.TuningAuto}</ProcessorCount>-->
-<!--        <IpAddress>*</IpAddress>-->
-<!--        <Port>443</Port>-->
-<!--        &lt;!&ndash; <Port>1935</Port> &ndash;&gt;-->
-<!--        <HTTPIdent2Response></HTTPIdent2Response>-->
-<!--        <SSLConfig>-->
-<!--          &lt;!&ndash; <KeyStorePath>${com.wowza.wms.context.VHostConfigHome}/conf/keystore.jks</KeyStorePath> &ndash;&gt;-->
-<!--          &lt;!&ndash; <KeyStorePassword>[password]</KeyStorePassword> &ndash;&gt;-->
-<!--          &lt;!&ndash; <KeyStoreType>JKS</KeyStoreType> &ndash;&gt;-->
-<!--          <KeyStorePath>/usr/local/WowzaStreamingEngine/conf/wowza.lib.berkeley.edu-keystore.jks</KeyStorePath>-->
-<!--          <KeyStorePassword>changeme</KeyStorePassword>-->
-<!--          <KeyStoreType>PKCS12</KeyStoreType>-->
-<!--          <SSLProtocol>TLS</SSLProtocol>-->
-<!--          <Algorithm>SunX509</Algorithm>-->
-<!--          <CipherSuites>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256</CipherSuites>-->
-<!--          <Protocols>TLSv1.1,TLSv1.2</Protocols>-->
-<!--        </SSLConfig>-->
-<!--        <SocketConfiguration>-->
-<!--          <ReuseAddress>true</ReuseAddress>-->
-<!--          <ReceiveBufferSize>65000</ReceiveBufferSize>-->
-<!--          <ReadBufferSize>65000</ReadBufferSize>-->
-<!--          <SendBufferSize>65000</SendBufferSize>-->
-<!--          <KeepAlive>true</KeepAlive>-->
-<!--          <AcceptorBackLog>100</AcceptorBackLog>-->
-<!--        </SocketConfiguration>-->
-<!--        <HTTPStreamerAdapterIDs>cupertinostreaming,smoothstreaming,sanjosestreaming,dvrchunkstreaming,mpegdashstreaming</HTTPStreamerAdapterIDs>-->
-<!--        <HTTPProviders>-->
-<!--          <HTTPProvider>-->
-<!--            <BaseClass>com.wowza.wms.http.HTTPCrossdomain</BaseClass>-->
-<!--            <RequestFilters>*crossdomain.xml</RequestFilters>-->
-<!--            <AuthenticationMethod>none</AuthenticationMethod>-->
-<!--          </HTTPProvider>-->
-<!--          <HTTPProvider>-->
-<!--            <BaseClass>com.wowza.wms.http.HTTPClientAccessPolicy</BaseClass>-->
-<!--            <RequestFilters>*clientaccesspolicy.xml</RequestFilters>-->
-<!--            <AuthenticationMethod>none</AuthenticationMethod>-->
-<!--          </HTTPProvider>-->
-<!--          <HTTPProvider>-->
-<!--            <BaseClass>com.wowza.wms.http.HTTPProviderMediaList</BaseClass>-->
-<!--            <RequestFilters>*jwplayer.rss|*jwplayer.smil|*medialist.smil|*manifest-rtmp.f4m</RequestFilters>-->
-<!--            <AuthenticationMethod>none</AuthenticationMethod>-->
-<!--          </HTTPProvider>-->
-<!--          <HTTPProvider>-->
-<!--            <BaseClass>com.wowza.wms.http.HTTPServerVersion</BaseClass>-->
-<!--            <RequestFilters>*</RequestFilters>-->
-<!--            <AuthenticationMethod>none</AuthenticationMethod>-->
-<!--          </HTTPProvider>-->
-<!--        </HTTPProviders>-->
-<!--      </HostPort>-->
-      
+      <!--
+      <HostPort>
+        <Name>Default SSL Streaming</Name>
+        <Type>Streaming</Type>
+        <ProcessorCount>${com.wowza.wms.TuningAuto}</ProcessorCount>
+        <IpAddress>*</IpAddress>
+        <Port>443</Port>
+        <HTTPIdent2Response></HTTPIdent2Response>
+        <SSLConfig>
+          <KeyStorePath>${com.wowza.wms.context.VHostConfigHome}/conf/keystore.jks</KeyStorePath>
+          <KeyStorePassword>[password]</KeyStorePassword>
+          <KeyStoreType>JKS</KeyStoreType>
+          <DomainToKeyStoreMapPath></DomainToKeyStoreMapPath>
+          <SSLProtocol>TLS</SSLProtocol>
+          <Algorithm>SunX509</Algorithm>
+          <CipherSuites></CipherSuites>
+          <Protocols></Protocols>
+          <AllowHttp2>false</AllowHttp2>
+        </SSLConfig>
+        <SocketConfiguration>
+          <ReuseAddress>true</ReuseAddress>
+          <ReceiveBufferSize>65000</ReceiveBufferSize>
+          <ReadBufferSize>65000</ReadBufferSize>
+          <SendBufferSize>65000</SendBufferSize>
+          <KeepAlive>true</KeepAlive>
+          <AcceptorBackLog>100</AcceptorBackLog>
+        </SocketConfiguration>
+        <HTTPStreamerAdapterIDs>cupertinostreaming,smoothstreaming,sanjosestreaming,dvrchunkstreaming,mpegdashstreaming</HTTPStreamerAdapterIDs>
+        <HTTPProviders>
+          <HTTPProvider>
+            <BaseClass>com.wowza.wms.http.HTTPCrossdomain</BaseClass>
+            <RequestFilters>*crossdomain.xml</RequestFilters>
+            <AuthenticationMethod>none</AuthenticationMethod>
+          </HTTPProvider>
+          <HTTPProvider>
+            <BaseClass>com.wowza.wms.http.HTTPClientAccessPolicy</BaseClass>
+            <RequestFilters>*clientaccesspolicy.xml</RequestFilters>
+            <AuthenticationMethod>none</AuthenticationMethod>
+          </HTTPProvider>
+          <HTTPProvider>
+            <BaseClass>com.wowza.wms.http.HTTPProviderMediaList</BaseClass>
+            <RequestFilters>*jwplayer.rss|*jwplayer.smil|*medialist.smil|*manifest-rtmp.f4m</RequestFilters>
+            <AuthenticationMethod>none</AuthenticationMethod>
+          </HTTPProvider>
+          <HTTPProvider>
+            <BaseClass>com.wowza.wms.http.HTTPServerVersion</BaseClass>
+            <RequestFilters>*ServerVersion</RequestFilters>
+            <AuthenticationMethod>none</AuthenticationMethod>
+          </HTTPProvider>
+        </HTTPProviders>
+      </HostPort>
+      -->
+
       <!-- Admin HostPort -->
       <HostPort>
         <Name>Default Admin</Name>
@@ -133,11 +133,6 @@
         </SocketConfiguration>
         <HTTPStreamerAdapterIDs></HTTPStreamerAdapterIDs>
         <HTTPProviders>
-          <HTTPProvider>
-            <BaseClass>com.wowza.wms.http.streammanager.HTTPStreamManager</BaseClass>
-            <RequestFilters>streammanager*</RequestFilters>
-            <AuthenticationMethod>admin-digest</AuthenticationMethod>
-          </HTTPProvider>
           <HTTPProvider>
             <BaseClass>com.wowza.wms.http.HTTPServerInfoXML</BaseClass>
             <RequestFilters>serverinfo*</RequestFilters>
@@ -164,14 +159,19 @@
             <AuthenticationMethod>admin-digest</AuthenticationMethod>
           </HTTPProvider>
           <HTTPProvider>
-            <BaseClass>com.wowza.wms.livestreamrecord.http.HTTPLiveStreamRecord</BaseClass>
-            <RequestFilters>livestreamrecord*</RequestFilters>
+            <BaseClass>com.wowza.wms.http.HTTPServerVersion</BaseClass>
+						<RequestFilters>*ServerVersion</RequestFilters>
+            <AuthenticationMethod>none</AuthenticationMethod>
+          </HTTPProvider>
+          <HTTPProvider>
+            <BaseClass>com.wowza.wms.http.streammanager.HTTPStreamManager</BaseClass>
+            <RequestFilters>streammanager*</RequestFilters>
             <AuthenticationMethod>admin-digest</AuthenticationMethod>
           </HTTPProvider>
           <HTTPProvider>
-            <BaseClass>com.wowza.wms.http.HTTPServerVersion</BaseClass>
-            <RequestFilters>*</RequestFilters>
-            <AuthenticationMethod>none</AuthenticationMethod>
+            <BaseClass>com.wowza.wms.livestreamrecord.http.HTTPLiveStreamRecord</BaseClass>
+            <RequestFilters>livestreamrecord*</RequestFilters>
+            <AuthenticationMethod>admin-digest</AuthenticationMethod>
           </HTTPProvider>
         </HTTPProviders>
       </HostPort>
@@ -206,6 +206,18 @@
       <HTTPStreamerAdapter>
         <ID>mpegdashstreaming</ID>
         <Name>mpegdashstreaming</Name>
+        <Properties>
+        </Properties>
+      </HTTPStreamerAdapter>
+      <HTTPStreamerAdapter>
+        <ID>tsstreaming</ID>
+        <Name>tsstreaming</Name>
+        <Properties>
+        </Properties>
+      </HTTPStreamerAdapter>
+      <HTTPStreamerAdapter>
+        <ID>webmstreaming</ID>
+        <Name>webmstreaming</Name>
         <Properties>
         </Properties>
       </HTTPStreamerAdapter>
@@ -305,7 +317,7 @@
     </RTP>
 		<HTTPProvider>
 			<KeepAliveTimeout>2000</KeepAliveTimeout>
-			<KillConnectionTimeout>10000</KillConnectionTimeout>
+      <EndConnectionTimeout>10000</EndConnectionTimeout>
 			<SlowConnectionBitrate>64000</SlowConnectionBitrate>
 			<IdleFrequency>250</IdleFrequency>
 		</HTTPProvider>
