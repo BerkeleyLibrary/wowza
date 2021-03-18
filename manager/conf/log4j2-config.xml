@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+	<Appenders>
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd} %d{HH:mm:ss} [%thread] %-5level %logger{36} %msg%n</Pattern>
+				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>
+			</PatternLayout>
+		</Console>
+
+		<RollingFile name="serverAccess" fileName="${sys:com.wowza.wms.ConfigHome}/logs/wmsmanager_access.log" filePattern="${sys:com.wowza.wms.ConfigHome}/logs/wmsmanager_access.%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Header>#Version: 1.0\n#Start-Date: %d{YYY-MM-dd HH:mm:ss zzz}\n#Software: ${sys:manager-software-version}\n#Date: %d{YYY-MM-dd}\n#Fields: date\ttime\ttz\tx-server\tx-user\tx-severity\tx-category\tx-comment%n</Header>
+				<!-- date,time,tz,x-server,x-user,x-severity,x-category,x-comment -->
+				<Pattern>%d{yyyy-MM-dd}\t%d{HH:mm:ss}\t%d{z}\t%replace{%X{x-server}}{^$}{server}\t%replace{%X{x-user}}{^$}{-}\t%replace{%-5level}{^$}{-}\t%replace{%X{x-category}}{^$}{server}\t%replace{%msg}{^$}{-}%n</Pattern>
+				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${sys:com.wowza.wms.ConfigHome}/logs" maxDepth="1">
+					<IfLastModified age="5d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
+		<RollingFile name="serverError" fileName="${sys:com.wowza.wms.ConfigHome}/logs/wmsmanager_error.log" filePattern="${sys:com.wowza.wms.ConfigHome}/logs/wmsmanager_error.%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Header>#Version: 1.0\n#Start-Date: %d{YYY-MM-dd HH:mm:ss zzz}\n#Software: ${sys:manager-software-version}\n#Date: %d{YYY-MM-dd}\n#Fields: date\ttime\ttz\tx-server\tx-user\tx-severity\tx-category\tx-comment%n</Header>
+				<!-- date,time,tz,x-server,x-user,x-severity,x-category,x-comment -->
+				<Pattern>%d{yyyy-MM-dd}\t%d{HH:mm:ss}\t%d{z}\t%replace{%X{x-server}}{^$}{server}\t%replace{%X{x-user}}{^$}{-}\t%replace{%-5level}{^$}{-}\t%replace{%X{x-category}}{^$}{server}\t%replace{%msg}{^$}{-}%n</Pattern>
+				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${sys:com.wowza.wms.ConfigHome}/logs" maxDepth="1">
+					<IfLastModified age="5d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="stdout" level="info"/>
+			<AppenderRef ref="serverAccess" level="info"/>
+			<AppenderRef ref="serverError" level="warn"/>
+		</Root>
+	</Loggers>
+</Configuration>
