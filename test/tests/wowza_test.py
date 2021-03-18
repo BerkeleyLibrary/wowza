@@ -1,6 +1,7 @@
 import os
 import pathlib
 import re
+import sys
 import unittest
 import urllib.request
 import xml.etree.ElementTree as et
@@ -91,7 +92,14 @@ class WowzaTest(unittest.TestCase):
     def test_wowza_version(self):
         container_wowza_version = self.get_wowza_version()
         latest_version_tag = DockerTag.get_latest_version_tag('wowzamedia/wowza-streaming-engine-linux')
-        self.assertEqual(container_wowza_version, latest_version_tag.name)
+        latest_version = latest_version_tag.name
+
+        # TODO: find a way to mark the build unstable rather than failed, if this fails
+        # self.assertEqual(container_wowza_version, latest_version)
+
+        if container_wowza_version != latest_version:
+            msg = "WARNING: current Wowza version is %s, but latest is %s" % (container_wowza_version, latest_version)
+            print(msg, file=sys.stderr)
 
     def test_applications(self):
         url = WowzaTest.base_url + 'v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications'
