@@ -46,8 +46,8 @@
 	<Loggers>
 		<Root level="info">
 			<AppenderRef ref="stdout" level="info"/>
-			<AppenderRef ref="serverAccess" level="info"/>
-			<AppenderRef ref="serverError" level="warn"/>
+<!--			<AppenderRef ref="serverAccess" level="info"/>-->
+<!--			<AppenderRef ref="serverError" level="warn"/>-->
 		</Root>
 	</Loggers>
 </Configuration>

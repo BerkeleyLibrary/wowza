@@ -229,8 +229,8 @@
 	<Loggers>
 		<Root level="info">
 			<AppenderRef ref="stdout" level="info"/>
-			<AppenderRef ref="serverAccess" level="info"/>
-			<AppenderRef ref="serverError" level="warn"/>
+<!--			<AppenderRef ref="serverAccess" level="info"/>-->
+<!--			<AppenderRef ref="serverError" level="warn"/>-->
 			<!-- <AppenderRef ref="serverStats" level="info"/> -->
 			<!-- <AppenderRef ref="vhostAccess" level="info"/> -->
 			<!-- <AppenderRef ref="vhostError" level="warn"/> -->
