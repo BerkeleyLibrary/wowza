@@ -12,10 +12,11 @@
 	-->
 	<Appenders>
 		<Console name="stdout" target="SYSTEM_OUT">
-			<PatternLayout>
-				<Pattern>%replace{%X{x-severity}}{^$}{-} %replace{%X{x-category}}{^$}{-} %replace{%X{x-event}}{^$}{-} %replace{%X{x-ctx}}{^$}{-} %replace{%X{x-comment}}{^$}{-}%n</Pattern>
-				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>
-			</PatternLayout>
+			<JsonTemplateLayout/>
+<!--			<PatternLayout>-->
+<!--				<Pattern>%replace{%X{x-severity}}{^$}{-} %replace{%X{x-category}}{^$}{-} %replace{%X{x-event}}{^$}{-} %replace{%X{x-ctx}}{^$}{-} %replace{%X{x-comment}}{^$}{-}%n</Pattern>-->
+<!--				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>-->
+<!--			</PatternLayout>-->
 		</Console>
 
 		<RollingFile name="serverAccess" fileName="${sys:com.wowza.wms.ConfigHome}/logs/wowzastreamingengine_access.log" filePattern="${sys:com.wowza.wms.ConfigHome}/logs/wowzastreamingengine_access.%d{yyyy-MM-dd}.log">

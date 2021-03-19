@@ -3,7 +3,8 @@
 	<Appenders>
 		<Console name="stdout" target="SYSTEM_OUT">
 			<PatternLayout>
-				<Pattern>%d{yyyy-MM-dd} %d{HH:mm:ss} [%thread] %-5level %logger{36} %msg%n</Pattern>
+				<JsonTemplateLayout/>
+<!--				<Pattern>%d{yyyy-MM-dd} %d{HH:mm:ss} [%thread] %-5level %logger{36} %msg%n</Pattern>-->
 				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>
 			</PatternLayout>
 		</Console>

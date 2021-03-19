@@ -88,6 +88,7 @@ COPY --chown=$APP_USER bin /opt/app/bin
 COPY --chown=$APP_USER conf /usr/local/WowzaStreamingEngine/conf
 COPY --chown=$APP_USER manager/conf /usr/local/WowzaStreamingEngine/manager/conf
 COPY --chown=$APP_USER applications /usr/local/WowzaStreamingEngine/applications
+COPY --chown=$APP_USER lib /usr/local/WowzaStreamingEngine/lib
 
 # All subsequent commands are executed relative to this directory.
 WORKDIR /opt/app
