@@ -12,7 +12,7 @@
 	-->
 	<Appenders>
 		<Console name="stdout" target="SYSTEM_OUT">
-			<JsonTemplateLayout/>
+			<JsonTemplateLayout eventTemplateUri="file:///opt/app/log4j-templates/server.json"/>
 <!--			<PatternLayout>-->
 <!--				<Pattern>%replace{%X{x-severity}}{^$}{-} %replace{%X{x-category}}{^$}{-} %replace{%X{x-event}}{^$}{-} %replace{%X{x-ctx}}{^$}{-} %replace{%X{x-comment}}{^$}{-}%n</Pattern>-->
 <!--				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>-->

@@ -1,0 +1,9 @@
+{
+  "name": "wowza-manager",
+  "category": { "key": "x-category", "$resolver": "mdc" },
+  "hostname": "${hostName}",
+  "time":     { "key": "timestamp", "$resolver": "timestamp" },
+  "severity": { "key": "x-severity", "$resolver": "mdc" },
+  "message":  { "key": "x-comment", "$resolver": "mdc" },
+  "user":     { "key": "x-user", "$resolver": "mdc" }
+}

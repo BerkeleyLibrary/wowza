@@ -2,11 +2,11 @@
 <Configuration status="info">
 	<Appenders>
 		<Console name="stdout" target="SYSTEM_OUT">
-			<PatternLayout>
-				<JsonTemplateLayout/>
+			<JsonTemplateLayout eventTemplateUri="file:///opt/app/log4j-templates/manager.json"/>
+<!--			<PatternLayout>-->
 <!--				<Pattern>%d{yyyy-MM-dd} %d{HH:mm:ss} [%thread] %-5level %logger{36} %msg%n</Pattern>-->
-				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>
-			</PatternLayout>
+<!--				<AlwaysWriteExceptions>false</AlwaysWriteExceptions>-->
+<!--			</PatternLayout>-->
 		</Console>
 
 		<RollingFile name="serverAccess" fileName="${sys:com.wowza.wms.ConfigHome}/logs/wmsmanager_access.log" filePattern="${sys:com.wowza.wms.ConfigHome}/logs/wmsmanager_access.%d{yyyy-MM-dd}.log">

@@ -59,6 +59,7 @@ WMSAPP_BIN="${WMSAPP_HOME}/bin"
   -Dcom.wowza.wms.ConfigURL='' \
   -Dcom.wowza.wms.ConfigHome="${WMSAPP_HOME}" \
   -Dlog4j.configurationFile="${WMSAPP_CONF}/log4j2-config.xml" \
+  -Dlog4j.garbagefreeThreadContextMap="true" \
   -cp "${WMSAPP_BIN}/wms-bootstrap.jar" \
   com.wowza.wms.bootstrap.Bootstrap \
   start
