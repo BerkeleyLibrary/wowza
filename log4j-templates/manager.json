@@ -1,9 +1,23 @@
 {
-  "name": "wowza-manager",
-  "category": { "key": "x-category", "$resolver": "mdc" },
-  "hostname": "${hostName}",
+  "name":      "wowza-manager",
   "time":     { "key": "timestamp", "$resolver": "timestamp" },
-  "severity": { "key": "x-severity", "$resolver": "mdc" },
-  "message":  { "key": "x-comment", "$resolver": "mdc" },
-  "user":     { "key": "x-user", "$resolver": "mdc" }
+  "level":     { "$resolver": "level", "field": "name" },
+  "hostname": "${hostName}",
+  "message":   { "$resolver": "message" },
+  "detail":    {
+    "category": { "key": "x-category", "$resolver": "mdc" },
+    "severity": { "key": "x-severity", "$resolver": "mdc" },
+    "message":  { "key": "x-comment", "$resolver": "mdc" },
+    "user":     { "key": "x-user", "$resolver": "mdc" }
+  },
+  "exception": {
+    "name":       { "$resolver": "exception", "field": "className" },
+    "stacktrace": {
+      "$resolver":  "exception",
+      "field":      "stackTrace",
+      "stackTrace": {
+        "stringified": true
+      }
+    }
+  }
 }

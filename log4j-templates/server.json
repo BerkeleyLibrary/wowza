@@ -1,40 +1,53 @@
 {
-  "name": "wowza-server",
-  "category":    { "key": "x-category", "$resolver": "mdc" },
-  "hostname":    "${hostName}",
-  "time":        { "key": "timestamp", "$resolver": "timestamp" },
-  "severity":    { "key": "x-severity", "$resolver": "mdc" },
-  "event":       { "key": "x-event", "$resolver": "mdc" },
-  "message":     { "key": "x-comment", "$resolver": "mdc" },
-  "context":     { "key": "x-ctx", "$resolver": "mdc" },
-  "vhost":       { "key": "x-vhost", "$resolver": "mdc" },
-  "application": {
-    "name":     { "key": "x-app", "$resolver": "mdc" },
-    "context":  { "key": "x-app-context", "$resolver": "mdc" },
-    "instance": {
-      "name":    { "key": "x-appinst", "$resolver": "mdc" },
-      "context": { "key": "x-appinst-context", "$resolver": "mdc" }
+  "name":     "wowza-server",
+  "time":     { "key": "timestamp", "$resolver": "timestamp" },
+  "level":     { "$resolver": "level", "field": "name" },
+  "hostname": "${hostName}",
+  "detail":   {
+    "category": { "key": "x-category", "$resolver": "mdc" },
+    "severity":    { "key": "x-severity", "$resolver": "mdc" },
+    "message":     { "key": "x-comment", "$resolver": "mdc" },
+    "context":     { "key": "x-ctx", "$resolver": "mdc" },
+    "vhost":       { "key": "x-vhost", "$resolver": "mdc" },
+    "event":       { "key": "x-event", "$resolver": "mdc" },
+    "application": {
+      "name":     { "key": "x-app", "$resolver": "mdc" },
+      "context":  { "key": "x-app-context", "$resolver": "mdc" },
+      "instance": {
+        "name":    { "key": "x-appinst", "$resolver": "mdc" },
+        "context": { "key": "x-appinst-context", "$resolver": "mdc" }
+      }
+    },
+    "request":     {
+      "uri":        { "key": "s-uri", "$resolver": "mdc" },
+      "protocol":   { "key": "c-proto", "$resolver": "mdc" },
+      "status":     { "key": "x-status", "$resolver": "mdc" },
+      "duration":   { "key": "x-duration", "$resolver": "mdc" },
+      "referer":    { "key": "c-referrer", "$resolver": "mdc" },
+      "user-agent": { "key": "c-user-agent", "$resolver": "mdc" },
+      "client-ip":  { "key": "c-ip", "$resolver": "mdc" },
+      "client-id":  { "key": "c-client-id", "$resolver": "mdc" }
+    },
+    "stream":      {
+      "id":                   { "key": "x-stream-id", "$resolver": "mdc" },
+      "name":                 { "key": "x-sname", "$resolver": "mdc" },
+      "query":                { "key": "x-squery", "$resolver": "mdc" },
+      "pos":                  { "key": "x-spos", "$resolver": "mdc" },
+      "uri":                  { "key": "x-suri", "$resolver": "mdc" },
+      "bytes-received":       { "key": "cs-stream-bytes", "$resolver": "mdc" },
+      "total-bytes-received": { "key": "cs-bytes", "$resolver": "mdc" },
+      "bytes-sent":           { "key": "sc-stream-bytes", "$resolver": "mdc" },
+      "total-bytes-sent":     { "key": "sc-bytes", "$resolver": "mdc" }
+    },
+    "exception": {
+      "name":       { "$resolver": "exception", "field": "className" },
+      "stacktrace": {
+        "$resolver":  "exception",
+        "field":      "stackTrace",
+        "stackTrace": {
+          "stringified": true
+        }
+      }
     }
-  },
-  "request":     {
-    "uri":        { "key": "s-uri", "$resolver": "mdc" },
-    "protocol":   { "key": "c-proto", "$resolver": "mdc" },
-    "status":     { "key": "x-status", "$resolver": "mdc" },
-    "duration":   { "key": "x-duration", "$resolver": "mdc" },
-    "referer":    { "key": "c-referrer", "$resolver": "mdc" },
-    "user-agent": { "key": "c-user-agent", "$resolver": "mdc" },
-    "client-ip":  { "key": "c-ip", "$resolver": "mdc" },
-    "client-id":  { "key": "c-client-id", "$resolver": "mdc" }
-  },
-  "stream":      {
-    "id":                   { "key": "x-stream-id", "$resolver": "mdc" },
-    "name":                 { "key": "x-sname", "$resolver": "mdc" },
-    "query":                { "key": "x-squery", "$resolver": "mdc" },
-    "pos":                  { "key": "x-spos", "$resolver": "mdc" },
-    "uri":                  { "key": "x-suri", "$resolver": "mdc" },
-    "bytes-received":       { "key": "cs-stream-bytes", "$resolver": "mdc" },
-    "total-bytes-received": { "key": "cs-bytes", "$resolver": "mdc" },
-    "bytes-sent":           { "key": "sc-stream-bytes", "$resolver": "mdc" },
-    "total-bytes-sent":     { "key": "sc-bytes", "$resolver": "mdc" }
   }
 }
