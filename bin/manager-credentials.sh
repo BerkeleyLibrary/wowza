@@ -29,5 +29,11 @@ source "${DIR}/secrets.sh"
 # Verify WOWZA_MANAGER_PASSWORD set
 if [ -z "${WOWZA_MANAGER_PASSWORD}" ]; then
   echo 'Wowza Streaming Engine Manager password not set in WOWZA_MANAGER_PASSWORD'
-  exit 1
+  if [ -z "${CI}" ]; then
+    echo 'exiting'
+    exit 1
+  else
+    echo "CI=${CI}; setting WOWZA_MANAGER_PASSWORD=wowza"
+    WOWZA_MANAGER_PASSWORD=wowza
+  fi
 fi

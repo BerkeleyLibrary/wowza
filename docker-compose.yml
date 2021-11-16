@@ -14,6 +14,7 @@ services:
       - target: 8089        # REST API documentation server (http://localhost:8089/api-docs)
         published: 8089
     environment:
+      - CI=${CI}
       - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY}
       - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
