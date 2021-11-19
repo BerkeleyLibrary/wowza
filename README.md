@@ -90,7 +90,7 @@ In the `ops/docker-swarm` repo:
 After the ops/docker-swarm build redeploys the app, test the new key by logging into the staging Wowza administration UI:
 
 - Navigate to https://wowza-manager.ucblib.org/.
-  - Log in (username `wowza-manager`, password in LPE under Shared-LIT-Applications).
+  - Log in (username `wowza`, password in LPE under Shared-LIT-Applications).
 - Navigate to the "Home" screen
 
 You should see something like:
