@@ -20,7 +20,7 @@ docker-compose up
 
 From the project root directory, in another terminal, you can:
 
-- run the tests on the host:
+- run the tests on the host (requires installing the [`xmlrunner`](https://pypi.org/project/xmlrunner/) module with `pip3`):
 
   ```sh
   WOWZA_MANAGER_PASSWORD=wowza python3 -m unittest discover -p "*_test.py"

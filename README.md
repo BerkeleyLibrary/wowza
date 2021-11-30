@@ -57,6 +57,17 @@ and configuration changes.
 
 ### Obtain the new license key
 
+#### 1-year R&D license
+
+- Log into https://www.wowza.com/ using the Library IT institutional account (username `libraryit@berkeley.edu`, password in LPE under Shared-LIT-Applications)
+- [Open a support ticket](https://www.wowza.com/support/open-ticket) for Wowza Streaming Engine, requesting a 1-year R&D license.
+- Look for email from Wowza to `libraryit@berkeley.edu` in response to the ticket, or check [My Account / Support](https://portal.wowza.com/account/support). Once the request is approved (which may take a few days), `libraryit` should receive an email containing the license key (a string of the form `ERDA4-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXXXXXXX`).
+  - **Note:** this email should also include the expiration information
+
+#### 30-day demo license
+
+In a pinch, it should be possible to get a 30-day demo license quickly, without any human intervention on the Wowza side.
+
 - Log into https://www.wowza.com/ using the Library IT institutional account (username `libraryit@berkeley.edu`, password in LPE under Shared-LIT-Applications)
 - Navigate to https://www.wowza.com/media-server/developers/license, agree to the EULA, and submit
 - Look for email from Wowza to `libraryit@berkeley.edu` containing the license key (should be a string of the form `EDEV4-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXXXXXXX`)
