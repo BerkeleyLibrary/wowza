@@ -100,6 +100,11 @@ COPY --chown=$APP_USER bin /opt/app/bin
 # =============================================================================
 # Additional Java libraries
 
+# Remove vulnerable log4j version that ships with Wowza. Our patched version in
+# lib-ucblit/log4j-core will be used instead.
+# @see https://jira-secure.berkeley.edu/browse/LIT-3010
+RUN rm -f /usr/local/WowzaStreamingEngine-4.8.16+1/lib/log4j*.jar
+
 # ==============================
 # Server
 
@@ -141,13 +146,3 @@ USER $APP_USER
 # Default command
 
 CMD ["/opt/app/bin/docker-entrypoint.sh"]
-
-# =============================================================================
-# Target: development
-
-FROM base AS development
-
-# =============================================================================
-# Target: production
-
-FROM base AS production
