@@ -103,14 +103,6 @@ COPY --chown=$APP_USER bin /opt/app/bin
 # Install zip, temporarily
 RUN apt-get install -y --no-install-recommends zip
 
-# Remove vulnerable log4j version that ships with Wowza. Our patched version in
-# lib-ucblit/log4j-core will be used instead.
-# @see https://jira-secure.berkeley.edu/browse/LIT-3010
-# RUN rm -f /usr/local/WowzaStreamingEngine-4.8.16+1/lib/log4j*.jar && \
-#     zip /usr/local/WowzaStreamingEngine/manager/lib/WMSManager.war -d \
-#            WEB-INF/lib/log4j-api-2.13.3.jar \
-#            WEB-INF/lib/log4j-core-2.13.3.jar
-
 # ==============================
 # Server
 
