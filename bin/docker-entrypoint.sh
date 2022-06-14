@@ -30,11 +30,15 @@ fi
 # Start server and manager in background
 
 # shellcheck source=start-server.sh
+echo "Invoking ${WOWZA_BIN}"/start-server.sh
 "${WOWZA_BIN}"/start-server.sh &
 SERVER_PID=$!
+echo "SERVER_PID=${SERVER_PID}"
 
+echo "Invoking ${WMSMGR_HOME}"/bin/startmgr.sh
 "${WMSMGR_HOME}"/bin/startmgr.sh &
 MANAGER_PID=$!
+echo "MANAGER_PID=${MANAGER_PID}"
 
 # ########################################
 # Make sure child processes exit cleanly
