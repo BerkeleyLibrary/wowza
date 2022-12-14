@@ -9,8 +9,8 @@
 # than called directly.
 # ############################################################
 
-BASENAME=$(basename ${BASH_SOURCE})
-echo "${BASENAME} running"
+BASENAME_S=$(basename ${BASH_SOURCE})
+echo "${BASENAME_S} running"
 
 if [ -d '/run/secrets' ]; then
   for f in /run/secrets/*
@@ -20,3 +20,5 @@ if [ -d '/run/secrets' ]; then
     export "${SECRET}"="$(cat "${f}")"
   done
 fi
+
+echo "${BASENAME_S} complete"

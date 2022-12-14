@@ -3,8 +3,8 @@
 # ############################################################
 # Starts the Wowza Streaming Engine.
 
-BASENAME=$(basename ${BASH_SOURCE})
-echo "${BASENAME} running"
+BASENAME_SS=$(basename ${BASH_SOURCE})
+echo "${BASENAME_SS} running"
 
 # ########################################
 # Global configuration
@@ -63,3 +63,5 @@ WMSAPP_BIN="${WMSAPP_HOME}/bin"
   -cp "${WMSAPP_BIN}/wms-bootstrap.jar" \
   com.wowza.wms.bootstrap.Bootstrap \
   start
+
+echo "${BASENAME_SS} complete"

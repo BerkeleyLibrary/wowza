@@ -15,8 +15,8 @@
 # than called directly.
 # ############################################################
 
-BASENAME=$(basename ${BASH_SOURCE})
-echo "${BASENAME} running"
+BASENAME_MC=$(basename ${BASH_SOURCE})
+echo "${BASENAME_MC} running"
 
 # Read secrets
 DIR="$(dirname "${BASH_SOURCE[0]}")"
@@ -37,3 +37,5 @@ if [ -z "${WOWZA_MANAGER_PASSWORD}" ]; then
     WOWZA_MANAGER_PASSWORD=wowza
   fi
 fi
+
+echo "${BASENAME_MC} complete"
