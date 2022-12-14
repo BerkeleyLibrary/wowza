@@ -34,8 +34,9 @@ def log(msg):
 
 def start_server():
     log(f"Starting Wowza server with %s" % SERVER_SH)
-    process = subprocess.Popen(SERVER_SH, stdout=subprocess.PIPE, encoding='utf8')
+    process = subprocess.Popen(SERVER_SH, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, encoding='utf8')
     for line in process.stdout:
+        print(line.rstrip())
         if 'REST API: ready' in line:
             log("Wowza server started")
             break
