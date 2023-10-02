@@ -29,7 +29,7 @@
 		-->
 		<Streams>
 			<StreamType>default</StreamType>
-			<StorageDir>/netapp/da/audio/public/cavpp</StorageDir>
+			<StorageDir>/srv/da/audio/public/cavpp</StorageDir>
 			<KeyDir>${com.wowza.wms.context.VHostConfigHome}/keys</KeyDir>
 			<!-- LiveStreamPacketizers (separate with commas): cupertinostreamingpacketizer, smoothstreamingpacketizer, sanjosestreamingpacketizer, mpegdashstreamingpacketizer, cupertinostreamingrepeater, smoothstreamingrepeater, sanjosestreamingrepeater, mpegdashstreamingrepeater, dvrstreamingpacketizer, dvrstreamingrepeater -->
 			<LiveStreamPacketizers></LiveStreamPacketizers>
