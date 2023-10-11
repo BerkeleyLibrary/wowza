@@ -74,7 +74,7 @@
 		</DVR>
 		<TimedText>
 			<!-- VOD caption providers (separate with commas): vodcaptionprovidermp4_3gpp, vodcaptionproviderttml, vodcaptionproviderwebvtt,  vodcaptionprovidersrt, vodcaptionproviderscc -->
-			<VODTimedTextProviders>vodcaptionprovidermp4_3gpp, vodcaptionproviderwebvtt</VODTimedTextProviders>
+			<VODTimedTextProviders>vodcaptionprovidermp4_3gpp, vodcaptionprovidersrt, vodcaptionproviderwebvtt</VODTimedTextProviders>
 			<!-- Properties for TimedText -->
 			<Properties>
 			</Properties>
