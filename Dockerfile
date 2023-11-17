@@ -2,7 +2,7 @@
 # Target: base
 #
 
-FROM wowzamedia/wowza-streaming-engine-linux:4.8.18 AS base
+FROM wowzamedia/wowza-streaming-engine-linux:4.8.25 AS base
 
 # =============================================================================
 # Ports
