@@ -82,6 +82,11 @@
 			
 			<!-- Properties for TimedText -->
 			<Properties>
+				<Property>
+					<Name>cupertinoVODCaptionsUseWebVTT</Name>
+					<Value>true</Value>
+					<Type>Boolean</Type>
+				</Property>
 			</Properties>		
 		</TimedText>
 		

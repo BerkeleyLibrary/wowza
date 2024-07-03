@@ -77,6 +77,11 @@
 			<VODTimedTextProviders>vodcaptionprovidermp4_3gpp, vodcaptionprovidersrt, vodcaptionproviderwebvtt</VODTimedTextProviders>
 			<!-- Properties for TimedText -->
 			<Properties>
+				<Property>
+					<Name>cupertinoVODCaptionsUseWebVTT</Name>
+					<Value>true</Value>
+					<Type>Boolean</Type>
+				</Property>
 			</Properties>
 		</TimedText>
 		<!-- HTTPStreamers (separate with commas): cupertinostreaming, smoothstreaming, sanjosestreaming, mpegdashstreaming, dvrchunkstreaming -->
