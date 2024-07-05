@@ -27,7 +27,8 @@ RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends \
     curl \
     dnsutils \
-    iputils-ping
+    iputils-ping \
+    lsb-core
 
 # =============================================================================
 # Java
