@@ -10,7 +10,7 @@
 			<!-- none, basic, digest, remotehttp, digestfile-->
 			<AuthenticationMethod>digest</AuthenticationMethod>
 			<!-- cleartext, digest, bcrypt -->
-			<PasswordEncodingScheme>bcrypt</PasswordEncodingScheme>
+			<PasswordEncodingScheme>md5</PasswordEncodingScheme>
 			<DiagnosticURLEnable>true</DiagnosticURLEnable>
 			<SSLConfig>
 				<Enable>false</Enable>
