@@ -66,7 +66,7 @@ On the master branch of this repository:
   3. the "expires" date comment
 - Test the installation:
   1. build an image with `docker-compose build --pull`
-  2. run tests with `docker-compose run wowza /opt/app/test/run_tests.py`
+  2. run tests with `docker-compose run app /opt/app/test/run_tests.py`
 - If the tests pass, commit and push the changes
 
 ### Update the license key in the Wowza staging stack
