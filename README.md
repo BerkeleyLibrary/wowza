@@ -68,7 +68,7 @@ On the `main` branch of this repository:
 - Test the installation:
   1. build an image with `docker-compose build --pull`
   2. run tests with `docker-compose run app /opt/app/test/run_tests.py`
-- If the tests pass, update the `WOWZA_LICENSE_KEY` [repository secret for Github Actions](https://github.com/BerkeleyLibrary/wowza/settings/secrets/actions)
+- If the tests pass, update the `WOWZA_LICENSE_KEY` [repository secret for GitHub Actions](https://github.com/BerkeleyLibrary/wowza/settings/secrets/actions)
 
 ### Update the license key in the Wowza staging stack
 
