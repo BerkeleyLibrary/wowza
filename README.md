@@ -10,6 +10,8 @@ The stack consists of a single container running both the Wowza streaming media 
 
 ## Development
 
+Create a local `.env` file based on `env.example` if you do not have one in your working copy.
+
 ```sh
 docker compose build --pull
 docker compose up
@@ -18,7 +20,7 @@ docker compose exec app bash
 
 ### Accessing Wowza Streaming Engine Manager
 
-To access Wowza Streaming Engine Manager, use the URL [`http://localhost:8088/enginemanager/login.htm`](http://localhost:8088/enginemanager/login.htm) with username and password specified as `$WOWZA_MANAGER_USER` and `$WOWZA_MANAGER_PASSWORD` in [.env](.env)
+To access Wowza Streaming Engine Manager, use the URL [`http://localhost:8088/enginemanager/login.htm`](http://localhost:8088/enginemanager/login.htm) with username and password specified as `$WOWZA_MANAGER_USER` and `$WOWZA_MANAGER_PASSWORD` in a `.env` file (see [`env.example`](env.example)).
 
 ## Testing
 
@@ -54,12 +56,11 @@ In a pinch, it should be possible to get a 30-day demo license quickly, without 
 - Look for email from Wowza to `libraryit@berkeley.edu` containing the license key (should be a string of the form `EDEV4-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXXXXXXX`)
   - **Note:** this email should also include the expiration information
 
-### Update the new license key in the `lap/wowza` repo
+### Update the new license key in the repo's secrets
 
-On the master branch of this repository:
+On the `main` branch of this repository:
 
-- Locate the `.env` file in the root of the repo
-  - **Note:** ordinarily `.env` files aren't checked in, but this one is. It doesn't end up in the container.
+- Locate your `.env` file in your working copy
 - Update:
   1. the WOWZA_LICENSE_KEY value
   2. the "generated" date comment
@@ -67,7 +68,7 @@ On the master branch of this repository:
 - Test the installation:
   1. build an image with `docker-compose build --pull`
   2. run tests with `docker-compose run app /opt/app/test/run_tests.py`
-- If the tests pass, commit and push the changes
+- If the tests pass, update the `WOWZA_LICENSE_KEY` [repository secret for GitHub Actions](https://github.com/BerkeleyLibrary/wowza/settings/secrets/actions)
 
 ### Update the license key in the Wowza staging stack
 
@@ -75,7 +76,7 @@ In the `ops/docker-swarm` repo:
 
 - Locate the stack file, files/staging/swarm/stacks/wowza-staging.yml
 - Under wowza:environment, update:
-  1. the WOWZA_LICENSE_KEY value
+  1. the `WOWZA_LICENSE_KEY` value
   2. the "expires" date comment
 - Commit and push the changes
 

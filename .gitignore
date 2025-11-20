@@ -1,6 +1,9 @@
 ############################################################
 # Custom ignores
 
+# no more secrets in the repo please
+.env
+
 # github-markdown-preview previews
 *.md.html
 
