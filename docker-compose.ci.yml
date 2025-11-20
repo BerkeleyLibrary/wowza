@@ -6,6 +6,8 @@ services:
     image: ${DOCKER_APP_IMAGE}
     volumes: !override
       - artifacts:/opt/app/artifacts
+    environment:
+      - WOWZA_LICENSE_KEY=${WOWZA_LICENSE_KEY:-intentionally-redacted-key}
 
 volumes:
   artifacts:
