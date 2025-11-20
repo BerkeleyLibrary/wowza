@@ -8,6 +8,10 @@ For the old standalone installation and associated code, see the [lap/wowza-lega
 
 The stack consists of a single container running both the Wowza streaming media engine application, and the Wowza streaming engine manager UI (as in a typical uncontainerized Wowza installation).
 
+## Release tag convention
+
+Git tags follow the Wowza Engine `major.minor.patch` version as defined in the [`Dockerfile`](Dockerfile), with a revision number used to track configuration/test changes. For example, for Wowza Engine 4.8.25, the first tag is `4.8.25-1`.
+
 ## Development
 
 Create a local `.env` file based on `env.example` if you do not have one in your working copy.
