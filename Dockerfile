@@ -2,7 +2,7 @@
 # Target: base
 #
 
-FROM wowzamedia/wowza-streaming-engine-linux:4.8.25 AS base
+FROM wowzamedia/wowza-streaming-engine-linux:4.9.6 AS base
 
 # =============================================================================
 # Ports
@@ -27,28 +27,29 @@ RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends \
     curl \
     dnsutils \
-    iputils-ping \
-    lsb-core
+    iputils-ping
 
 # =============================================================================
 # Java
 
-# The upstream Wowza image ships with OpenJDK 9.0.4+11, which is not a
-# long-term support release and, importantly, doesn't know about containers:
-# https://www.wowza.com/community/t/creating-a-production-worthy-docker-image/53957/3
+# The upstream Wowza image may ship with an outdated OpenJDK, and
+# previously (even as of 4.8.25) did not include an LTS release or
+# one that was aware of containers.
 #
 # Luckily, Wowza supports manually replacing the JRE:
 # https://www.wowza.com/docs/manually-install-and-troubleshoot-java-on-wowza-streaming-engine
+# ... so this updates to the latest version of OpenJDK 21 (LTS).
 #
 # (Unfortunately, this by itself isn't enough to get Wowza to properly
 # calculate its own max heap size, so we still need to set that explicitly
 # in Tune.xml. Possibly a future version of Wowza will be clever enough to
 # use -XX:MaxRAMPercentage instead.)
 
-RUN apt-get install -y --no-install-recommends openjdk-11-jre-headless
+RUN apt-get install -y --no-install-recommends openjdk-21-jre-headless
 
 RUN rm -rf /usr/local/WowzaStreamingEngine/java
-RUN ln -s /usr/lib/jvm/java-11-openjdk-amd64 /usr/local/WowzaStreamingEngine/java
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) ln -s "/usr/lib/jvm/java-21-openjdk-${arch}" /usr/local/WowzaStreamingEngine/java
 
 # =============================================================================
 # Global configuration
@@ -74,8 +75,9 @@ WORKDIR /opt/app
 # =============================================================================
 # Tests
 
-RUN apt-get install -y --no-install-recommends python3-pip
-RUN pip3 install unittest-xml-reporting
+RUN apt-get install -y --no-install-recommends python3-pip python3-venv
+RUN python3 -m venv venv
+RUN venv/bin/pip3 install unittest-xml-reporting
 
 COPY --chown=$APP_USER test /opt/app/test
 
@@ -133,12 +135,13 @@ RUN rm -r /opt/app/WEB-INF
 # Uninstall zip
 RUN apt-get remove -y zip
 
+# TODO: Fix this? Wowza's default image expects to run Wowza as root.
 # =============================================================================
 # Run as the wowza user to minimize risk to the host.
 
-USER $APP_USER
+# USER $APP_USER
 
 # =============================================================================
 # Default command
 
-CMD ["/opt/app/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/opt/app/bin/docker-entrypoint.sh"]

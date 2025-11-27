@@ -5,10 +5,6 @@
 # Streaming Media Engine Manager in subprocesses, and waits
 # for them to exit.
 
-# TODO: now that we're running the manager and server in the same container,
-#       consider getting rid of this (or simplifying it) in favor of the
-#       upstream container's /sbin/entrypoint.sh, which uses supervisord
-
 BASENAME=$(basename ${BASH_SOURCE})
 echo "${BASENAME} running"
 
@@ -26,58 +22,17 @@ if [ ! -z "${WOWZA_ENABLE_DOCUMENTATION_SERVER}" ]; then
   "${WOWZA_BIN}"/enable-documentation-server.sh
 fi
 
-# ########################################
-# Start server and manager in background
+# load secrets into wowza env vars. by default, the Wowza entrypoint
+# creates the keyfile in question, which is why we pass the variable
+# in using a different name.
+. "${WOWZA_BIN}/secrets.sh"
 
-# shellcheck source=start-server.sh
-echo "Invoking ${WOWZA_BIN}"/start-server.sh
-"${WOWZA_BIN}"/start-server.sh &
-SERVER_PID=$!
-echo "SERVER_PID=${SERVER_PID}"
-
-echo "Invoking ${WMSMGR_HOME}"/bin/startmgr.sh
-"${WMSMGR_HOME}"/bin/startmgr.sh &
-MANAGER_PID=$!
-echo "MANAGER_PID=${MANAGER_PID}"
+export WSE_MGR_USER=$WOWZA_MANAGER_USER
+export WSE_MGR_PASS=$WOWZA_MANAGER_PASSWORD
+export WSE_LIC=$WOWZA_LICENSE_KEY
 
 # ########################################
-# Make sure child processes exit cleanly
+# Start server and manager by handing off to Wowza's entrypoint
 
-ensure_clean_exit() {
-  trap - SIGINT SIGTERM # clear the trap
-  echo "Killing process $$ and all subprocesses"
-  kill -- -$$
-}
-
-sigint_received() {
-  echo "SIGINT received"
-  ensure_clean_exit
-}
-
-sigterm_received() {
-  echo "SIGTERM received"
-  ensure_clean_exit
-}
-
-trap sigint_received SIGINT
-trap sigterm_received SIGTERM
-
-# ########################################
-# Wait for manager or server to exit
-
-wait -n
-EXIT_STATUS=$?
-
-# Whichever exited, kill the other one
-if ! kill -0 $SERVER_PID 2> /dev/null; then
-  echo "Wowza Streaming Engine (PID ${SERVER_PID}) exited with ${EXIT_STATUS}"
-  echo "Stopping Wowza Streaming Engine Manager (PID ${MANAGER_PID})"
-  kill -- -$MANAGER_PID 2> /dev/null
-elif ! kill -0 $MANAGER_PID 2> /dev/null; then
-  echo "Wowza Streaming Engine Manager (PID ${MANAGER_PID}) exited with ${EXIT_STATUS}"
-  echo "Stopping Wowza Streaming Engine (PID ${SERVER_PID})"
-  kill -- -$SERVER_PID 2> /dev/null
-fi
-
-echo "Exiting with status ${EXIT_STATUS}"
-exit $EXIT_STATUS
+echo Invoking Wowza\'s /sbin/entrypoint.sh
+exec /sbin/entrypoint.sh "$@"

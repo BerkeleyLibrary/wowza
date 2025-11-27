@@ -34,13 +34,13 @@ From the project root directory, in another terminal, you can:
 
 ## Testing in a standalone container
 
-Alternatively, you can run the tests and server in the same container (as the Jenkins build
+Alternatively, you can run the tests and server in the same container (as the Github Actions build
 does). Note that this does not require exposing any ports to the host.
 
 ```sh
-docker-compose run wowza /opt/app/test/run_tests.py
+docker-compose run app /opt/app/test/run_tests.py
 ```
 
-In this case, remember to rebuild the `wowza` container before testing, to make sure your latest
+In this case, remember to rebuild the `app` container before testing, to make sure your latest
 additions to the test suite are included.
  

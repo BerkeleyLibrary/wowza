@@ -16,6 +16,11 @@ services:
       - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
       - WOWZA_ENABLE_DOCUMENTATION_SERVER=yes
+    healthcheck:
+      test: curl -s http://localhost:8087 > /dev/null || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 10
     # Uncommment these when editing / running tests locally.
     # (Note: slows performance on macOS Catalina, for some reason.)
     # volumes:
