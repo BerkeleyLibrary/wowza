@@ -143,7 +143,7 @@ jobs:
       - name: Run tests
         if: ${{ always() }}
         run: |
-          docker compose exec app /opt/app/venv/bin/python -m unittest discover -s /opt/app -p "*_test.py"
+          docker compose exec app venv/bin/python test/run_tests.py
         env: 
           WOWZA_LICENSE_KEY: ${{ secrets.WOWZA_LICENSE_KEY }}
 
