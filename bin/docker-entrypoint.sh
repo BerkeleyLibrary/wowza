@@ -31,6 +31,12 @@ export WSE_MGR_USER=$WOWZA_MANAGER_USER
 export WSE_MGR_PASS=$WOWZA_MANAGER_PASSWORD
 export WSE_LIC=$WOWZA_LICENSE_KEY
 
+# use envsubst to transform templates into supervisord config files
+echo "Creating supervisord configuration files from templates..."
+envsubst < /opt/app/etc_templates/supervisor/supervisord.conf.tmpl > /etc/supervisor/supervisord.conf
+envsubst < /opt/app/etc_templates/supervisor/conf.d/WowzaStreamingEngine.conf.tmpl > /etc/supervisor/conf.d/WowzaStreamingEngine.conf
+envsubst < /opt/app/etc_templates/supervisor/conf.d/WowzaStreamingEngineManager.conf.tmpl > /etc/supervisor/conf.d/WowzaStreamingEngineManager.conf
+
 # ########################################
 # Start server and manager by handing off to Wowza's entrypoint
 

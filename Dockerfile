@@ -27,6 +27,7 @@ RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends \
     curl \
     dnsutils \
+    gettext \
     iputils-ping
 
 # =============================================================================
@@ -48,6 +49,11 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get install -y --no-install-recommends openjdk-21-jre-headless
 
 RUN rm -rf /usr/local/WowzaStreamingEngine/java
+
+# for some reason, OpenJDK's default directory includes the architecture
+# name and does not symlink it to something more straightforward like
+# /usr/lib/jvm/java-21-openjdk so we have to detect the architecture
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) ln -s "/usr/lib/jvm/java-21-openjdk-${arch}" /usr/local/WowzaStreamingEngine/java
 
@@ -67,6 +73,10 @@ RUN usermod -u $APP_UID $APP_USER && \
 # transfer now-orphaned files to new wowza user (-h to chown symlinks)
 RUN find / -xdev -nouser -exec chown -h $APP_USER:$APP_USER {} \;
 
+# set variables to be used by envsubst to overwrite the default wowza config
+ENV SUPERVISORD_PID_FILE=/tmp/supervisord.pid
+ENV SUPERVISORD_SOCKET_FILE=/tmp/supervisor.sock
+
 # =============================================================================
 # Set working directory
 
@@ -81,7 +91,7 @@ RUN venv/bin/pip3 install unittest-xml-reporting
 
 COPY --chown=$APP_USER test /opt/app/test
 
-# Put artifacts where Jenkins can get at them
+# Put artifacts where Github Actions can get at them
 RUN mkdir /opt/app/artifacts && \
     chown $APP_USER:$APP_USER /opt/app/artifacts
 
@@ -98,6 +108,7 @@ RUN for app in vod live; \
 # Copy our scripts, configs, templates, etc. into the container
 COPY --chown=$APP_USER WowzaStreamingEngine /usr/local/WowzaStreamingEngine
 COPY --chown=$APP_USER log4j-templates /opt/app/log4j-templates
+COPY --chown=$APP_USER etc_templates /opt/app/etc_templates
 COPY --chown=$APP_USER bin /opt/app/bin
 
 # =============================================================================
@@ -135,11 +146,10 @@ RUN rm -r /opt/app/WEB-INF
 # Uninstall zip
 RUN apt-get remove -y zip
 
-# TODO: Fix this? Wowza's default image expects to run Wowza as root.
 # =============================================================================
-# Run as the wowza user to minimize risk to the host.
-
-# USER $APP_USER
+# Unlike most of our containers, this container starts as root as privileges
+# are dropped by supervisord instead of setting the `USER` set in the
+# Dockerfile.
 
 # =============================================================================
 # Default command

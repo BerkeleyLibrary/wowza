@@ -1,0 +1,9 @@
+[program:WowzaStreamingEngineManager]
+priority=20
+directory=/usr/local/WowzaStreamingEngine/manager/bin
+command=/usr/local/WowzaStreamingEngine/manager/bin/startmgr.sh
+user=${APP_USER}
+autostart=true
+autorestart=true
+stdout_logfile=/usr/local/supervisor/supervisorStdOut.log
+stderr_logfile=/usr/local/supervisor/supervisorStdErr.log
