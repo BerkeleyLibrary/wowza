@@ -108,8 +108,20 @@ RUN for app in vod live; \
 # Copy our scripts, configs, templates, etc. into the container
 COPY --chown=$APP_USER WowzaStreamingEngine /usr/local/WowzaStreamingEngine
 COPY --chown=$APP_USER log4j-templates /opt/app/log4j-templates
-COPY --chown=$APP_USER etc_templates /opt/app/etc_templates
+COPY --chown=$APP_USER supervisor_templates /opt/app/supervisor_templates
 COPY --chown=$APP_USER bin /opt/app/bin
+
+# create supervisord config files from templates
+RUN envsubst < \
+    supervisor_templates/supervisord.conf.tmpl > \
+    /etc/supervisor/supervisord.conf
+RUN envsubst < \
+    supervisor_templates/conf.d/WowzaStreamingEngine.conf.tmpl > \
+    /etc/supervisor/conf.d/WowzaStreamingEngine.conf
+RUN envsubst < \
+    supervisor_templates/conf.d/WowzaStreamingEngineManager.conf.tmpl > \
+    /etc/supervisor/conf.d/WowzaStreamingEngineManager.conf
+
 
 # =============================================================================
 # Additional Java libraries
@@ -150,6 +162,8 @@ RUN apt-get remove -y zip
 # Unlike most of our containers, this container starts as root as privileges
 # are dropped by supervisord instead of setting the `USER` set in the
 # Dockerfile.
+
+USER $APP_USER
 
 # =============================================================================
 # Default command
