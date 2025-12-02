@@ -5,7 +5,7 @@ file=${SUPERVISORD_SOCKET_FILE}   ; (the path to the socket file)
 chmod=0700                        ; socket file mode (default 0700)
 
 [supervisord]
-logfile=/dev/stdout               ; send supervisor logs to stdout
+logfile=/dev/null              ; send supervisor logs to stdout
 logfile_maxbytes = 0              ; forcibly disable log rotation
 pidfile=${SUPERVISORD_PID_FILE}   ; (supervisord pidfile;default supervisord.pid)
 childlogdir=/usr/local/supervisor ; ('AUTO' child log dir, default $TEMP)

@@ -164,6 +164,10 @@ RUN apt-get remove -y zip
 USER $APP_USER
 
 # =============================================================================
+# Healthcheck
+HEALTHCHECK --interval=5s --timeout=5s --start-period=10s --retries=10 CMD curl -s http://localhost:8087 > /dev/null || exit 1
+
+# =============================================================================
 # Default command
 
 ENTRYPOINT ["/opt/app/bin/docker-entrypoint.sh"]
