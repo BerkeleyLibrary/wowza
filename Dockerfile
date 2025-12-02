@@ -27,7 +27,6 @@ RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends \
     curl \
     dnsutils \
-    gettext \
     iputils-ping
 
 # =============================================================================
@@ -112,6 +111,7 @@ COPY --chown=$APP_USER supervisor_templates /opt/app/supervisor_templates
 COPY --chown=$APP_USER bin /opt/app/bin
 
 # create supervisord config files from templates
+RUN apt-get install -y --no-install-recommends gettext
 RUN envsubst < \
     supervisor_templates/supervisord.conf.tmpl > \
     /etc/supervisor/supervisord.conf
@@ -159,9 +159,7 @@ RUN rm -r /opt/app/WEB-INF
 RUN apt-get remove -y zip
 
 # =============================================================================
-# Unlike most of our containers, this container starts as root as privileges
-# are dropped by supervisord instead of setting the `USER` set in the
-# Dockerfile.
+# Run as the wowza user to minimize risk to the host.
 
 USER $APP_USER
 
