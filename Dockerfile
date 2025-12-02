@@ -2,7 +2,7 @@
 # Target: base
 #
 
-FROM wowzamedia/wowza-streaming-engine-linux:4.8.25 AS base
+FROM wowzamedia/wowza-streaming-engine-linux:4.9.6 AS base
 
 # =============================================================================
 # Ports
@@ -27,28 +27,34 @@ RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends \
     curl \
     dnsutils \
-    iputils-ping \
-    lsb-core
+    iputils-ping
 
 # =============================================================================
 # Java
 
-# The upstream Wowza image ships with OpenJDK 9.0.4+11, which is not a
-# long-term support release and, importantly, doesn't know about containers:
-# https://www.wowza.com/community/t/creating-a-production-worthy-docker-image/53957/3
+# The upstream Wowza image may ship with an outdated OpenJDK, and
+# previously (even as of 4.8.25) did not include an LTS release or
+# one that was aware of containers.
 #
 # Luckily, Wowza supports manually replacing the JRE:
 # https://www.wowza.com/docs/manually-install-and-troubleshoot-java-on-wowza-streaming-engine
+# ... so this updates to the latest version of OpenJDK 21 (LTS).
 #
 # (Unfortunately, this by itself isn't enough to get Wowza to properly
 # calculate its own max heap size, so we still need to set that explicitly
 # in Tune.xml. Possibly a future version of Wowza will be clever enough to
 # use -XX:MaxRAMPercentage instead.)
 
-RUN apt-get install -y --no-install-recommends openjdk-11-jre-headless
+RUN apt-get install -y --no-install-recommends openjdk-21-jre-headless
 
 RUN rm -rf /usr/local/WowzaStreamingEngine/java
-RUN ln -s /usr/lib/jvm/java-11-openjdk-amd64 /usr/local/WowzaStreamingEngine/java
+
+# for some reason, OpenJDK's default directory includes the architecture
+# name and does not symlink it to something more straightforward like
+# /usr/lib/jvm/java-21-openjdk so we have to detect the architecture
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN arch=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) ln -s "/usr/lib/jvm/java-21-openjdk-${arch}" /usr/local/WowzaStreamingEngine/java
 
 # =============================================================================
 # Global configuration
@@ -66,6 +72,10 @@ RUN usermod -u $APP_UID $APP_USER && \
 # transfer now-orphaned files to new wowza user (-h to chown symlinks)
 RUN find / -xdev -nouser -exec chown -h $APP_USER:$APP_USER {} \;
 
+# set variables to be used by envsubst to overwrite the default wowza config
+ENV SUPERVISORD_PID_FILE=/tmp/supervisord.pid
+ENV SUPERVISORD_SOCKET_FILE=/tmp/supervisor.sock
+
 # =============================================================================
 # Set working directory
 
@@ -74,12 +84,13 @@ WORKDIR /opt/app
 # =============================================================================
 # Tests
 
-RUN apt-get install -y --no-install-recommends python3-pip
-RUN pip3 install unittest-xml-reporting
+RUN apt-get install -y --no-install-recommends python3-pip python3-venv
+RUN python3 -m venv venv
+RUN venv/bin/pip3 install unittest-xml-reporting
 
 COPY --chown=$APP_USER test /opt/app/test
 
-# Put artifacts where Jenkins can get at them
+# Put artifacts where Github Actions can get at them
 RUN mkdir /opt/app/artifacts && \
     chown $APP_USER:$APP_USER /opt/app/artifacts
 
@@ -96,7 +107,21 @@ RUN for app in vod live; \
 # Copy our scripts, configs, templates, etc. into the container
 COPY --chown=$APP_USER WowzaStreamingEngine /usr/local/WowzaStreamingEngine
 COPY --chown=$APP_USER log4j-templates /opt/app/log4j-templates
+COPY --chown=$APP_USER supervisor_templates /opt/app/supervisor_templates
 COPY --chown=$APP_USER bin /opt/app/bin
+
+# create supervisord config files from templates
+RUN apt-get install -y --no-install-recommends gettext
+RUN envsubst < \
+    supervisor_templates/supervisord.conf.tmpl > \
+    /etc/supervisor/supervisord.conf
+RUN envsubst < \
+    supervisor_templates/conf.d/WowzaStreamingEngine.conf.tmpl > \
+    /etc/supervisor/conf.d/WowzaStreamingEngine.conf
+RUN envsubst < \
+    supervisor_templates/conf.d/WowzaStreamingEngineManager.conf.tmpl > \
+    /etc/supervisor/conf.d/WowzaStreamingEngineManager.conf
+
 
 # =============================================================================
 # Additional Java libraries
@@ -139,6 +164,10 @@ RUN apt-get remove -y zip
 USER $APP_USER
 
 # =============================================================================
+# Healthcheck
+HEALTHCHECK --interval=5s --timeout=5s --start-period=10s --retries=10 CMD curl -s http://localhost:8087 > /dev/null || exit 1
+
+# =============================================================================
 # Default command
 
-CMD ["/opt/app/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/opt/app/bin/docker-entrypoint.sh"]

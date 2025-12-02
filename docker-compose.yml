@@ -16,7 +16,7 @@ services:
       - WOWZA_MANAGER_USER=${WOWZA_MANAGER_USER}
       - WOWZA_MANAGER_PASSWORD=${WOWZA_MANAGER_PASSWORD}
       - WOWZA_ENABLE_DOCUMENTATION_SERVER=yes
-    # Uncommment these when editing / running tests locally.
+    # Uncomment these when editing / running tests locally.
     # (Note: slows performance on macOS Catalina, for some reason.)
     # volumes:
     #   - ./test:/opt/app/test
