@@ -172,24 +172,12 @@
 			</Properties>
 		</LiveStreamPacketizer>
 		<HTTPStreamer>
-			<!-- Properties defined here will override any properties defined in conf/HTTPStreamers.xml for any HTTPStreamer loaded by this applications -->
 			<Properties>
-				<!-- <Property> -->
-				<!-- 	<Name>mpegdashUserHTTPHeaders</Name> -->
-				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
-				<!-- </Property> -->
-				<!-- <Property> -->
-				<!-- 	<Name>cupertinoUserHTTPHeaders</Name> -->
-				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
-				<!-- </Property> -->
-				<!-- <Property> -->
-				<!-- 	<Name>smoothUserHTTPHeaders</Name> -->
-				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
-				<!-- </Property> -->
-				<!-- <Property> -->
-				<!-- 	<Name>sanjoseUserHTTPHeaders</Name> -->
-				<!-- 	<Value>Access-Control-Allow-Origin: *|Access-Control-Allow-Methods: GET, POST, OPTIONS|Access-Control-Allow-Headers: Range</Value> -->
-				<!-- </Property> -->
+				<Property>
+					<Name>cupertinoPacketizeAllStreamsAsTS</Name>
+					<Value>true</Value>
+					<Type>Boolean</Type>
+				</Property>
 			</Properties>
 		</HTTPStreamer>
 		<Manager>
