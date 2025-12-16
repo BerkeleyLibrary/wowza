@@ -37,14 +37,14 @@ jobs:
         env:
           BASE_IMAGE: ${{ steps.get-base-image.outputs.tags }}
         run: |
-          docker pull "$BASE_IMAGE"
+          docker manifest inspect "$BASE_IMAGE"
 
       - name: Produce release tags
         id: tag-meta
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
-          flavor: latest=auto
+          flavor: latest=false
           tags: |
             type=ref,event=tag
             type=match,pattern=\d+
@@ -52,9 +52,10 @@ jobs:
             type=match,pattern=\d+\.\d+\.\d+
             type=match,pattern=.*
 
-      - name: Retag the pulled image
+      - name: Retag and push image
         env:
           BASE_IMAGE: ${{ steps.get-base-image.outputs.tags }}
         run: |
-          echo "$DOCKER_METADATA_OUTPUT_TAGS" | tr ' ' '\n' | xargs -n1 docker tag "$BASE_IMAGE"
-          docker push --all-tags "$(echo "$BASE_IMAGE" | cut -f1 -d:)"
+          docker buildx imagetools create \
+            $(jq -cr '.tags | map("--tag " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            "$(echo "$BASE_IMAGE" | cut -f1 -d:)"
