@@ -112,6 +112,7 @@ COPY --chown=$APP_USER WowzaStreamingEngine /usr/local/WowzaStreamingEngine
 COPY --chown=$APP_USER log4j-templates /opt/app/log4j-templates
 COPY --chown=$APP_USER supervisor_templates /opt/app/supervisor_templates
 COPY --chown=$APP_USER bin /opt/app/bin
+COPY sbin/wowza-entrypoint.sh /sbin 
 
 # create supervisord config files from templates
 RUN apt-get install -y --no-install-recommends gettext
