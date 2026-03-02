@@ -2,7 +2,10 @@
 # Target: base
 #
 
-FROM wowzamedia/wowza-streaming-engine-linux:4.9.6 AS base
+ARG WOWZA_VERSION="4.9.7"
+ARG WOWZA_IMAGE_NAME="wowzamedia/wowza-streaming-engine-linux:${WOWZA_VERSION}"
+
+FROM ${WOWZA_IMAGE_NAME} AS base
 
 # =============================================================================
 # Ports
