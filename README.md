@@ -10,7 +10,9 @@ The stack consists of a single container running both the Wowza streaming media 
 
 ## Release tag convention
 
-Git tags follow the Wowza Engine `major.minor.patch` version as defined in the [`Dockerfile`](Dockerfile), with a revision number used to track configuration/test changes. For example, for Wowza Engine 4.8.25, the first tag is `4.8.25-1`.
+Git tags follow the Wowza Engine `major.minor.patch` version as defined in the [`Dockerfile`](Dockerfile), with a revision number used to track configuration/test changes. The [`Dockerfile`](Dockerfile) defines the build arguments `WOWZA_VERSION` and `WOWZA_IMAGE_NAME` to specify which version or base image to build our container from.
+
+For example, for Wowza Engine 4.8.25, the first tag is `4.8.25-1`. Note that this does not track the Wowza "revision" numbers (e.g. an upstream Wowza image tagged as `4.9.6-3` that corresponds to Wowza 4.9.6+3).
 
 ## Development
 

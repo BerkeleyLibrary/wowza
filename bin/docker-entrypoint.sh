@@ -33,6 +33,8 @@ export WSE_LIC=$WOWZA_LICENSE_KEY
 
 # ########################################
 # Start server and manager by handing off to Wowza's entrypoint
+# Note: see notes in sbin/wowza-entrypoint.sh; this is our workaround
+# for the NVIDIA nonsense they're trying to enable
 
-echo Invoking Wowza\'s /sbin/entrypoint.sh
-exec /sbin/entrypoint.sh "$@"
+echo Invoking Wowza\'s entrypoint
+exec /sbin/wowza-entrypoint.sh "$@"

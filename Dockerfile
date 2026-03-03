@@ -2,7 +2,10 @@
 # Target: base
 #
 
-FROM wowzamedia/wowza-streaming-engine-linux:4.9.6 AS base
+ARG WOWZA_VERSION="4.9.7"
+ARG WOWZA_IMAGE_NAME="wowzamedia/wowza-streaming-engine-linux:${WOWZA_VERSION}"
+
+FROM ${WOWZA_IMAGE_NAME} AS base
 
 # =============================================================================
 # Ports
@@ -109,6 +112,7 @@ COPY --chown=$APP_USER WowzaStreamingEngine /usr/local/WowzaStreamingEngine
 COPY --chown=$APP_USER log4j-templates /opt/app/log4j-templates
 COPY --chown=$APP_USER supervisor_templates /opt/app/supervisor_templates
 COPY --chown=$APP_USER bin /opt/app/bin
+COPY sbin/wowza-entrypoint.sh /sbin 
 
 # create supervisord config files from templates
 RUN apt-get install -y --no-install-recommends gettext
