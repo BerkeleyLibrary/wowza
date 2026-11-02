@@ -1,6 +1,6 @@
 # Wowza
 
-**NOTE**: This has been decommissioned (along with [avplayer](https://github.com/BerkeleyLibrary/avplayer)) as of 2026-11-02.
+**NOTE**: This image is unmaintained as of 2026-11-02 due to [avplayer](https://github.com/BerkeleyLibrary/avplayer) being decommissioned.
 
 This is the containerized UC Berkeley Library installation of the [Wowza](https://www.wowza.com/) commercial media server. This is one piece of the overall A/V stack which also includes [github.com/BerkeleyLibrary/avplayer](https://github.com/BerkeleyLibrary/avplayer). For overall process documentation, see [Google Docs](https://docs.google.com/document/d/1xckZnP0MeRThHRtlV8asf_ehitWaXT5rXqxp1zVq4qU/edit).
 
